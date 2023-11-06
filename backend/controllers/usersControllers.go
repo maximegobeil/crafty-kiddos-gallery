@@ -23,7 +23,7 @@ func Signup(c *gin.Context) {
 	
 	if c.Bind(&body) != nil {
 		c.JSON(http.StatusBadRequest, gin.H{
-			"error": "Failed to ready body",
+			"error": "Failed to read body",
 		})
 		return
 	}
@@ -62,7 +62,7 @@ func Login(c *gin.Context) {
 	
 	if c.Bind(&body) != nil {
 		c.JSON(http.StatusBadRequest, gin.H{
-			"error": "Failed to ready body",
+			"error": "Failed to read body",
 		})
 		return
 	}
@@ -101,11 +101,20 @@ func Login(c *gin.Context) {
 		})
 		return
 	}
-	// Send it back
+	// Store to cookie
 	c.SetSameSite(http.SameSiteLaxMode)
 	c.SetCookie("Authorization", tokenString, 3600 * 4, "", "", false, true)
 
 	c.JSON(http.StatusOK, gin.H{})
+}
+
+func Logout(c *gin.Context) {
+	//c.SetSameSite(http.SameSiteLaxMode)
+	c.SetCookie("Authorization", "", -3600, "", "", false, true)
+
+	c.JSON(http.StatusOK, gin.H{
+		"message": "loged out",
+	})
 }
 
 func Validate(c *gin.Context) {
@@ -113,12 +122,5 @@ func Validate(c *gin.Context) {
 
 	c.JSON(http.StatusOK, gin.H{
 		"message": user,
-	})
-}
-
-func UsersCreate(c *gin.Context) {
-	
-	c.JSON(200, gin.H{
-		"message": "Welcome Home",
 	})
 }

@@ -23,10 +23,15 @@ func main(){
 		AllowCredentials: true,
 	}))
 
-	r.GET("/f", controllers.UsersCreate)
 	r.POST("/signup", controllers.Signup)
 	r.POST("/login", controllers.Login)
+	r.POST("/logout", controllers.Logout)
 	r.GET("/validate", middleware.RequireAuth, controllers.Validate)
+	r.POST("/kids", middleware.RequireAuth, controllers.KidCreate)
+	r.GET("/kids", middleware.RequireAuth, controllers.KidReadAll)
+	r.GET("/kids/:id", middleware.RequireAuth, controllers.KidReadOne)
+	r.PUT("/kids/:id", middleware.RequireAuth, controllers.KidUpdate)
+	r.DELETE("/kids/:id", middleware.RequireAuth, controllers.KidDelete)
 
 	r.Run()
 }
