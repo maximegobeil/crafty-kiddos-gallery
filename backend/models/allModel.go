@@ -21,7 +21,10 @@ type User struct {
 
   type Craft struct {
 	gorm.Model
+	KidName string `gorm:"not null"`
+	AtAge uint `gorm:"not null"`
 	Description string
+	IsPrivate bool `gorm:"default:true"`
 	KidID uint
 	Pictures []Picture
 	Likes []Like
