@@ -15,9 +15,7 @@ func PictureCreate(c *gin.Context) {
 	}
 	c.Bind(&body)
 	idCraft, _ := strconv.Atoi(c.Param("craftID"))
-
 	picture := models.Picture{ImageUrl: body.ImageUrl, CraftID: uint(idCraft)}
-
 	result := initializers.DB.Create(&picture)
 
 	if result.Error != nil {

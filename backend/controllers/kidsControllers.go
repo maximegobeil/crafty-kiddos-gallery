@@ -54,7 +54,6 @@ func KidReadOne(c *gin.Context) {
 	var kid models.Kid
 	userID := c.MustGet("user").(models.User).ID
 	initializers.DB.Where("user_id = ?", userID).First(&kid, id)
-
 	if kid.ID == 0 {
 		c.JSON(http.StatusBadRequest, gin.H{
 			"error": "Kid not found",

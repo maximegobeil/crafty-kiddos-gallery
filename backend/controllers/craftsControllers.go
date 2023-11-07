@@ -21,14 +21,6 @@ func CraftCreate(c *gin.Context) {
 
 	c.Bind(&body)
 	id, _ := strconv.Atoi(c.Param("id"))
-	user := c.MustGet("user").(models.User)
-
-	if !IsMyKid(user, uint(id)) {
-		c.JSON(http.StatusForbidden, gin.H{
-			"error": "You don't have permission to perform this action",
-		})
-        return
-	}
 
 	// Create a craft
 	craft := models.Craft{
@@ -54,14 +46,6 @@ func CraftReadALl(c *gin.Context) {
 	// Get the kid
 	var crafts []models.Craft
 	id, _ := strconv.Atoi(c.Param("id"))
-	user := c.MustGet("user").(models.User)
-	
-	if !IsMyKid(user, uint(id)) {
-		c.JSON(http.StatusForbidden, gin.H{
-			"error": "You don't have permission to perform this action",
-		})
-        return
-	}
 	initializers.DB.Where("kid_id = ?", id).Find(&crafts)
 	// Respond
 	c.JSON(200, gin.H{
@@ -73,14 +57,6 @@ func CraftReadOne(c *gin.Context) {
 	//Get kid ID off url
 	idKid, _ := strconv.Atoi(c.Param("id"))
 	idCraft := c.Param("craftID")
-	user := c.MustGet("user").(models.User)
-	
-	if !IsMyKid(user, uint(idKid)) {
-		c.JSON(http.StatusForbidden, gin.H{
-			"error": "You don't have permission to perform this action",
-		})
-        return
-	}
 	// Get one craft
 	var craft models.Craft
 	initializers.DB.Where("kid_id = ?", idKid).First(&craft, idCraft)
@@ -101,13 +77,6 @@ func CraftUpdate(c *gin.Context) {
 	// Get Id off url
 	idKid, _ := strconv.Atoi(c.Param("id"))
 	idCraft := c.Param("craftID")
-	user := c.MustGet("user").(models.User)
-	if !IsMyKid(user, uint(idKid)) {
-		c.JSON(http.StatusForbidden, gin.H{
-			"error": "You don't have permission to perform this action",
-		})
-        return
-	}
 	// Get data off request body
 	var body struct {
 		KidName string
@@ -142,15 +111,7 @@ func CraftUpdate(c *gin.Context) {
 
 func CraftDelete(c *gin.Context) {
 	// Get id off url
-	idKid, _ := strconv.Atoi(c.Param("id"))
 	idCraft := c.Param("craftID")
-	user := c.MustGet("user").(models.User)
-	if !IsMyKid(user, uint(idKid)) {
-		c.JSON(http.StatusForbidden, gin.H{
-			"error": "You don't have permission to perform this action",
-		})
-        return
-	}
 	// Delete Kid
 	var craft models.Craft
 	initializers.DB.First(&craft, idCraft)
@@ -166,17 +127,4 @@ func CraftDelete(c *gin.Context) {
 	//Respond
 	
 	c.Status(200)
-}
-
-// Check if logged user access only is own kids
-func IsMyKid(u models.User, id uint) bool{
-	var user models.User
-	initializers.DB.Preload("Kids").First(&user, u.ID)
-	for _, kid := range user.Kids {
-		if kid.ID == id {
-			return true
-		}
-	}
-	return false
-	
 }
