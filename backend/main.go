@@ -32,6 +32,11 @@ func main(){
 	r.GET("/kids/:id", middleware.RequireAuth, controllers.KidReadOne)
 	r.PUT("/kids/:id", middleware.RequireAuth, controllers.KidUpdate)
 	r.DELETE("/kids/:id", middleware.RequireAuth, controllers.KidDelete)
+	r.POST("/kids/:id/crafts", middleware.RequireAuth, controllers.CraftCreate)
+	r.GET("/kids/:id/crafts", middleware.RequireAuth, controllers.CraftReadALl)
+	r.GET("/kids/:id/crafts/:craftID", middleware.RequireAuth, controllers.CraftReadOne)
+	r.PUT("/kids/:id/crafts/:craftID", middleware.RequireAuth, controllers.CraftUpdate)
+	r.DELETE("/kids/:id/crafts/:craftID", middleware.RequireAuth, controllers.CraftDelete)
 
 	r.Run()
 }

@@ -29,7 +29,7 @@ func KidCreate(c *gin.Context) {
 		c.Status(400)
 		return
 	}
-	//return it
+	// return it
 
 	c.JSON(200, gin.H{
 		"kid": kid,

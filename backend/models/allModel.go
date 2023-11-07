@@ -7,7 +7,7 @@ type User struct {
 	Name string `gorm:"not null"`
 	Email string `gorm:"unique"`
 	Password string `gorm:"not null"`
-	Kids []Kid
+	Kids []Kid `gorm:"foreignKey:UserID"`
 	Likes []Like
   }
 
@@ -24,7 +24,7 @@ type User struct {
 	KidName string `gorm:"not null"`
 	AtAge uint `gorm:"not null"`
 	Description string
-	IsPrivate bool `gorm:"default:true"`
+	IsPrivate *bool `gorm:"default:false"`
 	KidID uint
 	Pictures []Picture
 	Likes []Like
