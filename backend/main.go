@@ -22,21 +22,31 @@ func main(){
 		AllowHeaders: []string{"Content-Type"},
 		AllowCredentials: true,
 	}))
-
+	// Handling User
 	r.POST("/signup", controllers.Signup)
 	r.POST("/login", controllers.Login)
 	r.POST("/logout", controllers.Logout)
 	r.GET("/validate", middleware.RequireAuth, controllers.Validate)
+
+	// Handling Kids
 	r.POST("/kids", middleware.RequireAuth, controllers.KidCreate)
 	r.GET("/kids", middleware.RequireAuth, controllers.KidReadAll)
-	r.GET("/kids/:id", middleware.RequireAuth, controllers.KidReadOne)
-	r.PUT("/kids/:id", middleware.RequireAuth, controllers.KidUpdate)
-	r.DELETE("/kids/:id", middleware.RequireAuth, controllers.KidDelete)
-	r.POST("/kids/:id/crafts", middleware.RequireAuth, controllers.CraftCreate)
-	r.GET("/kids/:id/crafts", middleware.RequireAuth, controllers.CraftReadALl)
-	r.GET("/kids/:id/crafts/:craftID", middleware.RequireAuth, controllers.CraftReadOne)
-	r.PUT("/kids/:id/crafts/:craftID", middleware.RequireAuth, controllers.CraftUpdate)
-	r.DELETE("/kids/:id/crafts/:craftID", middleware.RequireAuth, controllers.CraftDelete)
+	r.GET("/kids/:id", middleware.RequireAuth, middleware.KidOwnershipChech, controllers.KidReadOne)
+	r.PUT("/kids/:id", middleware.RequireAuth, middleware.KidOwnershipChech, controllers.KidUpdate)
+	r.DELETE("/kids/:id", middleware.RequireAuth, middleware.KidOwnershipChech, controllers.KidDelete)
+
+	// Handling Crafts
+	r.POST("/kids/:id/crafts", middleware.RequireAuth, middleware.KidOwnershipChech, controllers.CraftCreate)
+	r.GET("/kids/:id/crafts", middleware.RequireAuth, middleware.KidOwnershipChech, controllers.CraftReadALl)
+	r.GET("/kids/:id/crafts/:craftID", middleware.RequireAuth, middleware.KidOwnershipChech, middleware.CraftOwnershipCheck, controllers.CraftReadOne)
+	r.PUT("/kids/:id/crafts/:craftID", middleware.RequireAuth, middleware.KidOwnershipChech, middleware.CraftOwnershipCheck, controllers.CraftUpdate)
+	r.DELETE("/kids/:id/crafts/:craftID", middleware.RequireAuth, middleware.KidOwnershipChech, middleware.CraftOwnershipCheck, controllers.CraftDelete)
+
+	// Handling Pictures
+	r.POST("/kids/:id/crafts/:craftID/pictures", middleware.RequireAuth, middleware.KidOwnershipChech, middleware.CraftOwnershipCheck, controllers.PictureCreate)
+	r.GET("/kids/:id/crafts/:craftID/pictures", middleware.RequireAuth, middleware.KidOwnershipChech, middleware.CraftOwnershipCheck, controllers.PictureRead)
+	r.DELETE("/kids/:id/crafts/:craftID/pictures/:pictureID", middleware.RequireAuth, middleware.KidOwnershipChech, middleware.CraftOwnershipCheck, middleware.PicutreOwnershipCheck,controllers.PictureDelete)
+	
 
 	r.Run()
 }
