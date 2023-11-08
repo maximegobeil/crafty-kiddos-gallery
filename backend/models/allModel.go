@@ -32,7 +32,7 @@ type User struct {
 
   type Picture struct { 
 	ID uint 
-	ImageUrl string // upload in something like amazon S3 
+	ImageUrl string
 	CraftID uint
   }
 

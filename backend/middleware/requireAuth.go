@@ -26,8 +26,6 @@ func RequireAuth(c *gin.Context) {
 		if _, ok := token.Method.(*jwt.SigningMethodHMAC); !ok {
 			return nil, fmt.Errorf("Unexpected signing method: %v", token.Header["alg"])
 		}
-	
-		// hmacSampleSecret is a []byte containing your secret, e.g. []byte("my_secret_key")
 		return []byte(os.Getenv("SECRET")), nil
 	})
 	
@@ -46,12 +44,8 @@ func RequireAuth(c *gin.Context) {
 
 		// Attach to req
 		c.Set("user", user)
-
-		//continue the route
 		c.Next()
 	} else {
 		c.AbortWithStatus(http.StatusUnauthorized)
 	}
-
-
 }

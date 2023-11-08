@@ -46,7 +46,10 @@ func main(){
 	r.POST("/kids/:id/crafts/:craftID/pictures", middleware.RequireAuth, middleware.KidOwnershipChech, middleware.CraftOwnershipCheck, controllers.PictureCreate)
 	r.GET("/kids/:id/crafts/:craftID/pictures", middleware.RequireAuth, middleware.KidOwnershipChech, middleware.CraftOwnershipCheck, controllers.PictureRead)
 	r.DELETE("/kids/:id/crafts/:craftID/pictures/:pictureID", middleware.RequireAuth, middleware.KidOwnershipChech, middleware.CraftOwnershipCheck, middleware.PicutreOwnershipCheck,controllers.PictureDelete)
-	
 
+	// Handling Likes
+	r.POST("/:craftID/like", middleware.RequireAuth, controllers.LikeCraft)
+	r.GET("/:craftID/like", middleware.RequireAuth, controllers.LikeNumber)
+	
 	r.Run()
 }

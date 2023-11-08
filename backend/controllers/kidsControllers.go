@@ -19,10 +19,8 @@ func KidCreate(c *gin.Context) {
 	c.Bind(&body)
 	user := c.MustGet("user").(models.User)
 
-
 	// Create a kid
 	kid := models.Kid{Name: body.Name, Age: body.Age, UserID: user.ID}
-
 	result := initializers.DB.Create(&kid)
 
 	if result.Error != nil {
@@ -115,6 +113,5 @@ func KidDelete(c *gin.Context) {
 	}
 	
 	//Respond
-	
 	c.Status(200)
 }

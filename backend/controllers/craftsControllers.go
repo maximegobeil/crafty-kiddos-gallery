@@ -36,14 +36,14 @@ func CraftCreate(c *gin.Context) {
 		c.Status(400)
 		return
 	}
-	//return it
+	// Return it
 	c.JSON(200, gin.H{
 		"craft": craft,
 	})
 }
 
 func CraftReadALl(c *gin.Context) {
-	// Get the kid
+	// Get the craft
 	var crafts []models.Craft
 	id, _ := strconv.Atoi(c.Param("id"))
 	initializers.DB.Where("kid_id = ?", id).Find(&crafts)
@@ -54,7 +54,7 @@ func CraftReadALl(c *gin.Context) {
 }
 
 func CraftReadOne(c *gin.Context) {
-	//Get kid ID off url
+	//Get craft ID off url
 	idKid, _ := strconv.Atoi(c.Param("id"))
 	idCraft := c.Param("craftID")
 	// Get one craft
@@ -86,7 +86,7 @@ func CraftUpdate(c *gin.Context) {
 	}
 	c.Bind(&body)
 
-	// Find the kid we want to update
+	// Find the craft we want to update
 	var craft models.Craft
 	initializers.DB.Where("kid_id = ?", idKid).First(&craft, idCraft)
 
@@ -112,7 +112,7 @@ func CraftUpdate(c *gin.Context) {
 func CraftDelete(c *gin.Context) {
 	// Get id off url
 	idCraft := c.Param("craftID")
-	// Delete Kid
+	// Delete craft
 	var craft models.Craft
 	initializers.DB.First(&craft, idCraft)
 	if craft.ID == 0 {
@@ -125,6 +125,5 @@ func CraftDelete(c *gin.Context) {
 	}
 	
 	//Respond
-	
 	c.Status(200)
 }

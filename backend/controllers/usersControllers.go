@@ -14,13 +14,12 @@ import (
 
 func Signup(c *gin.Context) {
 	// Get info off request body
-
 	var body struct {
 		Name string
 		Email string
 		Password string
 	}
-	
+
 	if c.Bind(&body) != nil {
 		c.JSON(http.StatusBadRequest, gin.H{
 			"error": "Failed to read body",
@@ -28,7 +27,7 @@ func Signup(c *gin.Context) {
 		return
 	}
 	
-	// Hash password
+	// Hash received password
 	hash, err := bcrypt.GenerateFromPassword([]byte(body.Password), 10)
 
 	if err != nil {
@@ -38,10 +37,10 @@ func Signup(c *gin.Context) {
 		return
 	}
 	
-	// Create the user
+	// Create new user
 	user := models.User{Name: body.Name, Email: body.Email, Password: string(hash)}
 
-	result := initializers.DB.Create(&user) // pass pointer of data to Create
+	result := initializers.DB.Create(&user)
 	if result.Error != nil {
 		c.JSON(http.StatusBadRequest, gin.H{
 			"error": "Failed to create user",
@@ -72,7 +71,7 @@ func Login(c *gin.Context) {
 
 	if user.ID == 0 {
 		c.JSON(http.StatusBadRequest, gin.H{
-			"error": "Login failed invalid email or password",
+			"error": "Login failed invalid email",
 		})
 		return
 	}
@@ -90,7 +89,7 @@ func Login(c *gin.Context) {
 	// Generate JWT
 	token := jwt.NewWithClaims(jwt.SigningMethodHS256, jwt.MapClaims{
 		"sub": user.ID,
-		"exp": time.Now().Add(time.Hour * 4).Unix(), // good for 4 hours
+		"exp": time.Now().Add(time.Hour * 24).Unix(), // good for 24 hours
 	})
 	// Sign and get the complete encoded token as a string using the secret
 	tokenString, err := token.SignedString([]byte(os.Getenv("SECRET")))
@@ -103,13 +102,12 @@ func Login(c *gin.Context) {
 	}
 	// Store to cookie
 	c.SetSameSite(http.SameSiteLaxMode)
-	c.SetCookie("Authorization", tokenString, 3600 * 4, "", "", false, true)
+	c.SetCookie("Authorization", tokenString, 3600 * 24, "", "", false, true)
 
 	c.JSON(http.StatusOK, gin.H{})
 }
 
 func Logout(c *gin.Context) {
-	//c.SetSameSite(http.SameSiteLaxMode)
 	c.SetCookie("Authorization", "", -3600, "", "", false, true)
 
 	c.JSON(http.StatusOK, gin.H{
