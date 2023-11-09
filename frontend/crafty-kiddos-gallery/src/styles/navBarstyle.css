@@ -1,0 +1,12 @@
+@font-face {
+  font-family: "handy";
+  src: url("./fonts/handyFont.ttf") format("ttf");
+  /* Add more formats if needed */
+  font-weight: normal;
+  font-style: normal;
+}
+
+h1 {
+  font-family: "handy";
+  color: blue;
+}

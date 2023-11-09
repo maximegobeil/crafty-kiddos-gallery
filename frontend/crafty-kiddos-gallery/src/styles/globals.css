@@ -1,0 +1,15 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@font-face {
+  font-family: "handy";
+  src: local("handyFont.ttf"), url("../fonts/handyFont.ttf") format("truetype");
+}
+
+h1 {
+  font-family: handy;
+}
+body {
+  background-color: rgb(235, 235, 235);
+}
