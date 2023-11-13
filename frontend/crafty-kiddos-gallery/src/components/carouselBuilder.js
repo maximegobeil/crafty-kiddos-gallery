@@ -23,7 +23,7 @@ export function CarouselBuilder(props) {
   }, [props.offset, props.showArrows]);
 
   return (
-    <div className="w-2/3">
+    <div className="w-[90%]">
       <Carousel
         slides={cards}
         goToSlide={goToSlide}

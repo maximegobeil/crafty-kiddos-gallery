@@ -20,7 +20,7 @@ func KidCreate(c *gin.Context) {
 	user := c.MustGet("user").(models.User)
 
 	// Create a kid
-	kid := models.Kid{Name: body.Name, Age: body.Age, UserID: user.ID}
+	kid := models.Kid{Name: body.Name, Age: uint(body.Age), UserID: user.ID}
 	result := initializers.DB.Create(&kid)
 
 	if result.Error != nil {

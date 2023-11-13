@@ -1,8 +1,33 @@
+import axios from "axios";
+import { useState } from "react";
+
 export function LoginModal({ open, onClose, openSignupModal }) {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  const handleFormSubmit = async (event) => {
+    event.preventDefault();
+    onClose();
+
+    try {
+      console.log("email: ", email);
+      const response = await axios.post("http://localhost:3000/login", {
+        email: email,
+        password: password,
+      });
+      console.log("User created: ", response.data);
+      const token = response.data.token;
+      document.cookie = `Authorization=${token}; Max-Age=86400; Secure; SameSite=None; path=/`;
+      window.location.reload();
+    } catch (error) {
+      console.log("Error creating user: ", error);
+    }
+  };
+
   return (
     <div
       onClick={onClose}
-      className={`fixed inset-0 flex justify-center 
+      className={`z-50 fixed inset-0 flex justify-center 
       items-center transition-colors 
       ${open ? "visible bg-black/20" : "invisible"}`}
     >
@@ -18,7 +43,7 @@ export function LoginModal({ open, onClose, openSignupModal }) {
         >
           X
         </button>
-        <form>
+        <form onSubmit={handleFormSubmit}>
           <h3 className="text-2xl font-bold mb-4 text-center">Sign In</h3>
           <div className="text-center mb-4">
             Not registered yet?
@@ -31,22 +56,24 @@ export function LoginModal({ open, onClose, openSignupModal }) {
           </div>
           <div className="mb-3">
             <label className="block">Email address</label>
-            <input type="email" placeholder="Enter email" />
+            <input
+              type="email"
+              placeholder="Enter email"
+              value={email}
+              onChange={(event) => setEmail(event.target.value)}
+            />
           </div>
           <div className="mb-3">
             <label className="block">Password</label>
-            <input type="password" placeholder="Enter password" />
+            <input
+              type="password"
+              placeholder="Enter password"
+              value={password}
+              onChange={(event) => setPassword(event.target.value)}
+            />
           </div>
           <div>
-            <a
-              href="#_"
-              class="w-full inline-flex items-center justify-center px-4 py-2 text-base font-medium leading-6 text-white whitespace-no-wrap bg-[#d56a36] border-[#d56a36] rounded-md shadow-sm hover:bg-[#d56a36] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#d56a36]"
-              data-rounded="rounded-md"
-              data-primary="blue-600"
-              data-primary-reset="{}"
-            >
-              Submit
-            </a>
+            <button type="submit">Submit button</button>
           </div>
         </form>
       </div>

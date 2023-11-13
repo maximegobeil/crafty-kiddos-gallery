@@ -13,6 +13,7 @@ import (
 )
 
 func RequireAuth(c *gin.Context) {
+
 	// Get the cookie off request
 	tokenString, err := c.Cookie("Authorization")
 
@@ -20,6 +21,12 @@ func RequireAuth(c *gin.Context) {
 		c.AbortWithStatus(http.StatusUnauthorized)
 	}
 
+	// Set CORS headers
+	c.Header("Access-Control-Allow-Origin", "http://localhost:5000")  // Replace with the actual origin of your frontend
+	c.Header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE")
+	c.Header("Access-Control-Allow-Headers", "Content-Type, Authorization")
+
+	fmt.Println("Token String:", tokenString)
 	// Validate it
 	token, err := jwt.Parse(tokenString, func(token *jwt.Token) (interface{}, error) {
 		// Don't forget to validate the alg is what you expect:
@@ -28,12 +35,24 @@ func RequireAuth(c *gin.Context) {
 		}
 		return []byte(os.Getenv("SECRET")), nil
 	})
+	if err != nil || !token.Valid{
+		fmt.Println("Error parsing token:", err)
+		c.AbortWithStatus(http.StatusUnauthorized)
+		return
+	}
 	
 	if claims, ok := token.Claims.(jwt.MapClaims); ok && token.Valid {
 		// Check the exp
+		/*
 		if float64(time.Now().Unix()) > claims["exp"].(float64) {
 			c.AbortWithStatus(http.StatusUnauthorized)
 		}
+		*/
+		if exp, ok := claims["exp"].(float64); ok && float64(time.Now().Unix()) > exp {
+			c.AbortWithStatus(http.StatusUnauthorized)
+			return
+		}
+
 		// Find the user with token sub
 		var user models.User
 		initializers.DB.First(&user, claims["sub"])

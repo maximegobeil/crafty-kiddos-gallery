@@ -3,6 +3,7 @@ package controllers
 import (
 	"example/backend/initializers"
 	"example/backend/models"
+	"fmt"
 	"net/http"
 	"os"
 	"time"
@@ -53,6 +54,11 @@ func Signup(c *gin.Context) {
 }
 
 func Login(c *gin.Context) {
+	c.Header("Access-Control-Allow-Origin", "http://localhost:5000")  // Replace with the actual origin of your frontend
+	c.Header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE")
+	c.Header("Access-Control-Allow-Headers", "Content-Type, Authorization")
+	
+	
 	// Get email & send request body
 	var body struct {
 		Email string
@@ -92,19 +98,21 @@ func Login(c *gin.Context) {
 		"exp": time.Now().Add(time.Hour * 24).Unix(), // good for 24 hours
 	})
 	// Sign and get the complete encoded token as a string using the secret
-	tokenString, err := token.SignedString([]byte(os.Getenv("SECRET")))
+	tokenString, tokenErr := token.SignedString([]byte(os.Getenv("SECRET")))
 
-	if err != nil {
+	if tokenErr != nil {
 		c.JSON(http.StatusBadRequest, gin.H{
 			"error": "Failed to create token",
 		})
 		return
 	}
 	// Store to cookie
-	c.SetSameSite(http.SameSiteLaxMode)
-	c.SetCookie("Authorization", tokenString, 3600 * 24, "", "", false, true)
+	//c.SetSameSite(http.SameSiteNoneMode)//http.SameSiteLaxMode
+	//c.SetCookie("Authorization", tokenString, 3600 * 24, "/", "localhost", true, true)
 
-	c.JSON(http.StatusOK, gin.H{})
+	c.JSON(http.StatusOK, gin.H{
+		"token": tokenString,
+	})
 }
 
 func Logout(c *gin.Context) {
@@ -116,9 +124,22 @@ func Logout(c *gin.Context) {
 }
 
 func Validate(c *gin.Context) {
-	user, _ := c.Get("user")
+	user, exist := c.Get("user")
+
+	if !exist || user == nil{
+		c.JSON(http.StatusUnauthorized, gin.H{
+			"message": "User not found in context",
+		})
+		return
+	}
 
 	c.JSON(http.StatusOK, gin.H{
 		"message": user,
 	})
+}
+
+func SetCookieTest(c *gin.Context) {
+    cookie := fmt.Sprintf("Authorization=%s; Path=/; Max-Age=%d; HttpOnly; Secure; SameSite=None", "tokenString", 3600*24)
+	c.Header("Cookie", cookie)
+    c.JSON(http.StatusOK, gin.H{"message": "Cookie set successfully"})
 }

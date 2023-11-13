@@ -2,7 +2,7 @@ export function SignupModal({ open, onClose, openLoginModal }) {
   return (
     <div
       onClick={onClose}
-      className={`fixed inset-0 flex justify-center 
+      className={`z-50 fixed inset-0 flex justify-center 
         items-center transition-colors 
         ${open ? "visible bg-black/20" : "invisible"}`}
     >
@@ -44,7 +44,7 @@ export function SignupModal({ open, onClose, openLoginModal }) {
           <div>
             <a
               href="#_"
-              class="w-full inline-flex items-center justify-center px-4 py-2 text-base font-medium leading-6 text-white whitespace-no-wrap bg-[#d56a36] border-[#d56a36] rounded-md shadow-sm hover:bg-[#d56a36] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#d56a36]"
+              className="w-full inline-flex items-center justify-center px-4 py-2 text-base font-medium leading-6 text-white whitespace-no-wrap bg-[#d56a36] border-[#d56a36] rounded-md shadow-sm hover:bg-[#d56a36] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#d56a36]"
               data-rounded="rounded-md"
               data-primary="blue-600"
               data-primary-reset="{}"
