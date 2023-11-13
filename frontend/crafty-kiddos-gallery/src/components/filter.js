@@ -4,17 +4,13 @@ import { useState } from "react";
 
 export function Filter() {
   const ageGroup = [
-    { group: "1-2 Tiny Tots", icon: "🍼" },
-    { group: "3-4 Little Explorers", icon: "🌍" },
-    { group: "5-6 Junior Adventurer", icon: "🚀" },
-    { group: "7-8 Mini Marvels ", icon: "🦸" },
-    { group: "9-10 Tween Titans", icon: "🌟" },
-    { group: "11-12 Pre-Teen Pioneers", icon: "🌌" },
-    { group: "13-14 Teen Trailblazers ", icon: "🚶‍♂️" },
+    { group: "1-4 Tiny Tots", icon: "🍼" },
+    { group: "5-9 Little Explorers", icon: "🌍" },
+    { group: "10-12 Junior Adventurer", icon: "🚀" },
+    { group: "13-15 Teen Trailblazers ", icon: "🦸" },
   ];
 
   const [isOpen, setIsOpen] = useState(false);
-  const list = [1, 2, 3, 4, 5, 6];
 
   return (
     <div className="relative flex place-content-center">
@@ -28,7 +24,7 @@ export function Filter() {
       {isOpen && (
         <div className="bg-white absolute bottom-10 z-40">
           {ageGroup.map((item, index) => (
-            <div>
+            <div key={index} className="flex place-content-between p-2">
               <h3>{item.group}</h3>
               <h3>{item.icon}</h3>
             </div>

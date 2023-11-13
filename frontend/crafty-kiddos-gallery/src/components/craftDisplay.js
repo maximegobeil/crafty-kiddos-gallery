@@ -1,11 +1,14 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
+import { CraftEditModal } from "./craftEditModal";
 
 export function CraftDisplay({ kidID, kidName, kidAge }) {
   const [crafts, setCrafts] = useState([]);
   const [description, setDescription] = useState("");
   const [isPrivate, setIsPrivate] = useState(false);
   const [image, setImage] = useState(null);
+  const [open, setOpen] = useState(false);
+  const [selectedCraft, setSelectedCraft] = useState([]);
 
   const handleImageChange = (event) => {
     const file = event.target.files[0];
@@ -19,7 +22,7 @@ export function CraftDisplay({ kidID, kidName, kidAge }) {
         `http://localhost:3000/kids/${kidID}/crafts`,
         {
           kidName: kidName,
-          kidAge: kidAge,
+          atAge: kidAge,
           description: description,
           isPrivate: isPrivate,
         },
@@ -50,19 +53,36 @@ export function CraftDisplay({ kidID, kidName, kidAge }) {
     }
   };
 
+  const getCrafts = async () => {
+    try {
+      const craftsResponse = await axios.get(
+        `http://localhost:3000/kids/${kidID}/crafts`,
+        { withCredentials: true }
+      );
+      console.log("Crafts: ", craftsResponse.data);
+      const craftsWithPictures = craftsResponse.data.crafts.map(
+        async (craft) => {
+          const picturesResponse = await axios.get(
+            `http://localhost:3000/kids/${kidID}/crafts/${craft.ID}/pictures`,
+            { withCredentials: true }
+          );
+          return {
+            ...craft,
+            pictures: picturesResponse.data.pictures,
+          };
+        }
+      );
+
+      Promise.all(craftsWithPictures).then((craftsWithPictures) => {
+        setCrafts(craftsWithPictures);
+      });
+    } catch (error) {
+      console.log("Error getting crafts: ", error);
+    }
+  };
+
   useEffect(() => {
-    const getCrafts = async () => {
-      try {
-        const craftsResponse = await axios.get(
-          `http://localhost:3000/kids/${kidID}/crafts`,
-          { withCredentials: true }
-        );
-        console.log("Crafts: ", craftsResponse.data);
-        setCrafts(craftsResponse.data.crafts);
-      } catch (error) {
-        console.log("Error getting crafts: ", error);
-      }
-    };
+    // Call getCrafts directly here
     getCrafts();
   }, [kidID]);
 
@@ -73,12 +93,18 @@ export function CraftDisplay({ kidID, kidName, kidAge }) {
         { withCredentials: true }
       );
       console.log("Craft deleted: ", response.data);
-      /*setCrafts((prevCrafts) =>
+      setCrafts((prevCrafts) =>
         prevCrafts.filter((craft) => craft.ID !== craftID)
-      );*/
+      );
     } catch (error) {
       console.log("Error deleting craft: ", error);
     }
+  };
+
+  const handleModify = (craft) => {
+    setSelectedCraft(craft);
+    setOpen(true);
+    console.log("Craft selected: ", selectedCraft);
   };
 
   return (
@@ -125,17 +151,29 @@ export function CraftDisplay({ kidID, kidName, kidAge }) {
               >
                 <img
                   className="w-64 h-64 object-cover rounded-md"
-                  src={""}
-                  alt={craft.title}
+                  src={
+                    craft.pictures && craft.pictures.length > 0
+                      ? craft.pictures[0].ImageUrl
+                      : ""
+                  }
+                  alt={craft.AtAge}
                 />
                 <p className="text-lg">{craft.Description}</p>
                 <p className="text-lg">{craft.AtAge}</p>
-                <button>Delete</button>
+                <button onClick={() => handleModify(craft)}>Modify</button>
+                <button onClick={() => deleteCraft(craft.ID)}>Delete</button>
               </div>
             );
           })}
         </div>
       </div>
+      <CraftEditModal
+        open={open}
+        onClose={() => setOpen(false)}
+        craft={selectedCraft}
+        kidID={kidID}
+        refresh={() => getCrafts()}
+      />
     </div>
   );
 }

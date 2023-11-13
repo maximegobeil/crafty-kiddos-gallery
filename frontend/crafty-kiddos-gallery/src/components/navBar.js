@@ -39,9 +39,11 @@ export function NavBar() {
   return (
     <nav>
       <navcontainer className="flex items-center justify-between w-full bg-[#99E0EC] drop-shadow">
-        <h1 className="text-7xl text-[#377069] mt-4 mb-4 ml-16">
-          Crafty <span className="text-[#c08b45]">Kiddos</span> Gallery
-        </h1>
+        <a href="/">
+          <h1 className="text-7xl text-[#377069] mt-4 mb-4 ml-16">
+            Crafty <span className="text-[#c08b45]">Kiddos</span> Gallery
+          </h1>
+        </a>
         {!isLoggedIn ? (
           <div className="flex space-x-4 mr-4">
             <a
@@ -70,23 +72,22 @@ export function NavBar() {
             <a href="/kids" className="mr-2">
               My Kids
             </a>
-            <button onClick={handleLogout} className="mr-2">
+            <a href="/" onClick={handleLogout} className="mr-2">
               Log Out
-            </button>
+            </a>
           </div>
         )}
-
-        <LoginModal
-          open={loginModalOpen}
-          onClose={() => setLoginModalOpen(false)}
-          openSignupModal={openSignupModal}
-        />
-        <SignupModal
-          open={signupModalOpen}
-          onClose={() => setSignupModalOpen(false)}
-          openLoginModal={openLoginModal}
-        />
       </navcontainer>
+      <LoginModal
+        open={loginModalOpen}
+        onClose={() => setLoginModalOpen(false)}
+        openSignupModal={openSignupModal}
+      />
+      <SignupModal
+        open={signupModalOpen}
+        onClose={() => setSignupModalOpen(false)}
+        openLoginModal={openLoginModal}
+      />
     </nav>
   );
 }
