@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useSpring, animated } from "react-spring";
 import { FaHeart } from "react-icons/fa";
 
-export function Card({ image }) {
+export function Card({ image, atAge, description, kidName }) {
   const [show, setShown] = useState(false);
 
   const props3 = useSpring({
@@ -20,13 +20,11 @@ export function Card({ image }) {
       onMouseLeave={() => setShown(false)}
     >
       <img className="rounded-md -mt-6" src={image} alt="" />
-      <p className="mt-6">
-        Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam
-        nonummy nibh
-      </p>
+      <p className="mt-6">{description}</p>
       <div className="flex justify-between items-center mt-6">
-        <h3>By: Nathan</h3>
-        <h3>Age: 6</h3>
+        <h3>By: {kidName}</h3>
+        <h3>Age: {atAge}</h3>
+
         <div style={{ color: "green" }}>
           <FaHeart />
         </div>

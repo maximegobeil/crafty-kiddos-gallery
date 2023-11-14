@@ -1,6 +1,6 @@
 import dynamic from "next/dynamic";
 import { config } from "react-spring";
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 
 const Carousel = dynamic(() => import("react-spring-3d-carousel"), {
   loading: () => <p>Loading...</p>,
@@ -8,9 +8,15 @@ const Carousel = dynamic(() => import("react-spring-3d-carousel"), {
 });
 
 export function CarouselBuilder(props) {
-  const cardsInfo = props.cards.map((element, index) => {
-    return { ...element, onClick: () => setGoToSlide(index) };
-  });
+  const cardsInfo = Array.isArray(props.cards)
+    ? props.cards.map((element, index) => ({
+        ...element,
+        onClick: () => setGoToSlide(index),
+      }))
+    : [];
+  if (cardsInfo.length === 0) {
+    return <p>No cards to display.</p>;
+  }
   const [offsetRadius, setOffsetRadius] = useState(2);
   const [goToSlide, setGoToSlide] = useState(null);
   const [cards] = useState(cardsInfo);

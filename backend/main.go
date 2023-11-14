@@ -39,6 +39,7 @@ func main(){
 	// Handling Crafts
 	r.POST("/kids/:id/crafts", middleware.RequireAuth, middleware.KidOwnershipChech, controllers.CraftCreate)
 	r.GET("/kids/:id/crafts", middleware.RequireAuth, middleware.KidOwnershipChech, controllers.CraftReadALl)
+	r.GET("/randomcrafts",controllers.CraftReadRandom)
 	r.GET("/kids/:id/crafts/:craftID", middleware.RequireAuth, middleware.KidOwnershipChech, middleware.CraftOwnershipCheck, controllers.CraftReadOne)
 	r.PUT("/kids/:id/crafts/:craftID", middleware.RequireAuth, middleware.KidOwnershipChech, middleware.CraftOwnershipCheck, controllers.CraftUpdate)
 	r.DELETE("/kids/:id/crafts/:craftID", middleware.RequireAuth, middleware.KidOwnershipChech, middleware.CraftOwnershipCheck, controllers.CraftDelete)

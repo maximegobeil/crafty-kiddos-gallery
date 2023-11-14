@@ -1,14 +1,18 @@
+import { useEffect, useState } from "react";
 import { Card } from "./card";
 import { CarouselBuilder } from "./carouselBuilder";
 import { Filter } from "./filter";
+import axios from "axios";
 
-export function DisplayCards() {
+export function DisplayCards(crafts) {
+  console.log("crafts", crafts);
+
+  /*const myurl =
+    "https://pyxis.nymag.com/v1/imgs/24c/d4a/6fdd64a7c835b8325065b72e6fbfe59fb9-09-family-drawing1.rsocial.w1200.jpg";
   let cards = [
     {
       key: 15,
-      content: (
-        <Card image="https://pyxis.nymag.com/v1/imgs/24c/d4a/6fdd64a7c835b8325065b72e6fbfe59fb9-09-family-drawing1.rsocial.w1200.jpg" />
-      ),
+      content: <Card image={myurl} />,
     },
     {
       key: 17,
@@ -59,12 +63,17 @@ export function DisplayCards() {
       ),
     },
   ];
-
+  console.log("cards", cards);
+*/
   return (
     <div className="bg-[#9fd8d1] flex flex-grow min-w-full">
       <div className="m-10 mx-auto w-full">
         <div className="flex flex-col justify-center items-center h-5/6">
-          <CarouselBuilder cards={cards} offset={3} showArrows={false} />
+          <CarouselBuilder
+            cards={crafts.crafts}
+            offset={3}
+            showArrows={false}
+          />
         </div>
         <div>
           <Filter />
