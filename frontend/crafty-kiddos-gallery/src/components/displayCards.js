@@ -1,12 +1,18 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { Card } from "./card";
 import { CarouselBuilder } from "./carouselBuilder";
-import { Filter } from "./filter";
 import axios from "axios";
+import { AiOutlineCaretUp, AiOutlineCaretDown } from "react-icons/ai";
 
-export function DisplayCards(crafts) {
-  console.log("crafts", crafts);
-
+export function DisplayCards() {
+  const [craftList, setCraftList] = useState([]);
+  const [isOpen, setIsOpen] = useState(false);
+  const ageGroup = [
+    { group: "0-4 Tiny Tots", icon: "🍼" },
+    { group: "5-9 Little Explorers", icon: "🌍" },
+    { group: "10-12 Junior Adventurer", icon: "🚀" },
+    { group: "13-15 Teen Trailblazers ", icon: "🦸" },
+  ];
   /*const myurl =
     "https://pyxis.nymag.com/v1/imgs/24c/d4a/6fdd64a7c835b8325065b72e6fbfe59fb9-09-family-drawing1.rsocial.w1200.jpg";
   let cards = [
@@ -62,21 +68,70 @@ export function DisplayCards(crafts) {
         />
       ),
     },
-  ];
-  console.log("cards", cards);
-*/
+  ];*/
+
+  const getRandomCrafts = useCallback(async () => {
+    try {
+      const response = await axios.get("http://localhost:3000/randomcrafts", {
+        withCredentials: true,
+      });
+
+      const mappe = response.data.random.map((item) => {
+        return {
+          key: item.ID,
+          content: (
+            <Card
+              image={
+                item.Pictures && item.Pictures.length > 0
+                  ? item.Pictures[0].ImageUrl
+                  : "#_"
+              }
+              atAge={item.AtAge}
+              description={item.Description}
+              kidName={item.KidName}
+            />
+          ),
+        };
+      });
+      setCraftList(mappe);
+    } catch (error) {
+      console.log("Error getting randomcrafts: ", error);
+    }
+  });
+  useEffect(() => {
+    getRandomCrafts();
+  }, []);
+
   return (
     <div className="bg-[#9fd8d1] flex flex-grow min-w-full">
       <div className="m-10 mx-auto w-full">
         <div className="flex flex-col justify-center items-center h-5/6">
-          <CarouselBuilder
-            cards={crafts.crafts}
-            offset={3}
-            showArrows={false}
-          />
+          <CarouselBuilder cards={craftList} offset={3} showArrows={false} />
         </div>
         <div>
-          <Filter />
+          <div className="relative flex place-content-center">
+            <button
+              onClick={() => setIsOpen((prev) => !prev)}
+              className=" bg-blue-400 flex felx-col justify-between rounded-md p-4 mx-4 w-1/6
+               border-4 border-transparent active:border-white duration-300 active:text-white"
+            >
+              Age Group
+              {!isOpen ? <AiOutlineCaretDown /> : <AiOutlineCaretUp />}
+            </button>
+            {isOpen && (
+              <div className="bg-white absolute bottom-10 z-40">
+                {ageGroup.map((item, index) => (
+                  <div key={index} className="flex place-content-between p-2">
+                    <h3>{item.group}</h3>
+                    <h3>{item.icon}</h3>
+                  </div>
+                ))}
+              </div>
+            )}
+            <button className="bg-blue-400 rounded-md p-4 mx-4 w-1/8">
+              Generate New Crafts
+            </button>
+          </div>
         </div>
       </div>
     </div>

@@ -12,6 +12,40 @@ export function Filter() {
 
   const [isOpen, setIsOpen] = useState(false);
 
+  const [craftList, setCraftList] = useState([]);
+
+  const getRandomCrafts = async () => {
+    try {
+      const response = await axios.get("http://localhost:3000/randomcrafts", {
+        withCredentials: true,
+      });
+      console.log("response: ", response.data.random);
+
+      const mappe = response.data.random.map((item) => {
+        return {
+          key: item.ID,
+          content: (
+            <Card
+              image={
+                item.Pictures && item.Pictures.length > 0
+                  ? item.Pictures[0].ImageUrl
+                  : "#_"
+              }
+              atAge={item.AtAge}
+              description={item.Description}
+              kidName={item.KidName}
+            />
+          ),
+        };
+      });
+
+      setCraftList(mappe);
+      console.log("fdsfsdf: ", craftList);
+    } catch (error) {
+      console.log("Error getting randomcrafts: ", error);
+    }
+  };
+
   return (
     <div className="relative flex place-content-center">
       <button
@@ -32,7 +66,12 @@ export function Filter() {
         </div>
       )}
       <button className="bg-blue-400 rounded-md p-4 mx-4">Most Liked</button>
-      <button className="bg-blue-400 rounded-md p-4 mx-4">Generate More</button>
+      <button
+        onClick={getRandomCrafts}
+        className="bg-blue-400 rounded-md p-4 mx-4"
+      >
+        Generate New Crafts
+      </button>
     </div>
   );
 }

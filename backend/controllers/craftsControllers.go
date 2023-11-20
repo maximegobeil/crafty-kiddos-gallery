@@ -33,7 +33,7 @@ func CraftCreate(c *gin.Context) {
 	result := initializers.DB.Create(&craft)
 
 	if result.Error != nil {
-		c.Status(400)
+		c.JSON(http.StatusBadRequest, gin.H{"error": result.Error.Error()})
 		return
 	}
 	// Return it
@@ -125,7 +125,7 @@ func CraftDelete(c *gin.Context) {
 	}
 	
 	//Respond
-	c.Status(200)
+	c.Status(204)
 }
 
 func CraftReadRandom(c *gin.Context) {
