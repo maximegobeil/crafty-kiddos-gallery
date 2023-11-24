@@ -42,7 +42,7 @@ export function CraftEditModal({ open, onClose, kidID, craft, refresh }) {
       <div
         onClick={(event) => event.stopPropagation()}
         className={`
-          bg-white rounded-md shadow p-6 transition-all
+          bg-white rounded-md shadow p-6 transition-all w-1/4
           ${open ? "scale-100 opacity-100" : "scale-125 opacity-0"}`}
       >
         <button
@@ -51,37 +51,43 @@ export function CraftEditModal({ open, onClose, kidID, craft, refresh }) {
         >
           X
         </button>
-        <form>
-          <h3 className="text-2xl font-bold mb-4 text-center">
-            Edit {craft.kidName}
+        <form className="w-full">
+          <h3 className="text-2xl font-bold mb-4 text-center text-[#2f2f2f]">
+            Edit Craft {craft.kidName}
           </h3>
 
-          <div className="mb-3">
-            <label className="block">Description</label>
-            <input
+          <div className="mb-4 mt-8">
+            <label className="block text-[#2f2f2f]">Description</label>
+            <textarea
+              className="bg-gray-100 rounded-md p-2 mt-1 w-full"
               type="text"
               value={description}
               onChange={(event) => setDescription(event.target.value)}
             />
           </div>
           <div className="mb-3">
-            <label className="block">Made at age:</label>
+            <label className="block text-[#2f2f2f]">Made at age:</label>
             <input
+              className="bg-gray-100 rounded-md p-2 mt-1 w-full"
               type="number"
               value={atAge}
               onChange={(event) => setAtAge(event.target.value)}
             />
           </div>
           <div className="mb-3">
-            <label className="block">Private</label>
             <input
               type="checkbox"
               checked={isPrivate}
               onChange={() => setIsPrivate((prev) => !prev)}
             />
+            <label className="ml-2">Private</label>
           </div>
           <div>
-            <button type="submit" onClick={handleFormSubmit}>
+            <button
+              className="text-white font-semibold bg-[#9fd8d1] px-3 py-1.5 rounded-md w-full hover:bg-[#7fc5bf]"
+              type="submit"
+              onClick={handleFormSubmit}
+            >
               Submit button
             </button>
           </div>

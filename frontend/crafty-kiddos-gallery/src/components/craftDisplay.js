@@ -59,6 +59,40 @@ export function CraftDisplay({ kidID, kidName, kidAge }) {
         `http://localhost:3000/kids/${kidID}/crafts`,
         { withCredentials: true }
       );
+
+      console.log("Crafts: ", craftsResponse.data);
+
+      const craftsWithPictures = await Promise.all(
+        craftsResponse.data.crafts.map(async (craft) => {
+          try {
+            const picturesResponse = await axios.get(
+              `http://localhost:3000/kids/${kidID}/crafts/${craft.ID}/pictures`,
+              { withCredentials: true }
+            );
+
+            return {
+              ...craft,
+              pictures: picturesResponse.data.pictures,
+            };
+          } catch (picturesError) {
+            console.log("Error getting pictures: ", picturesError);
+            return craft; // Return the craft without pictures in case of error
+          }
+        })
+      );
+
+      setCrafts(craftsWithPictures);
+    } catch (error) {
+      console.log("Error getting crafts: ", error);
+    }
+  };
+
+  /*const getCrafts = async () => {
+    try {
+      const craftsResponse = await axios.get(
+        `http://localhost:3000/kids/${kidID}/crafts`,
+        { withCredentials: true }
+      );
       console.log("Crafts: ", craftsResponse.data);
       const craftsWithPictures = craftsResponse.data.crafts.map(
         async (craft) => {
@@ -79,7 +113,7 @@ export function CraftDisplay({ kidID, kidName, kidAge }) {
     } catch (error) {
       console.log("Error getting crafts: ", error);
     }
-  };
+  };*/
 
   useEffect(() => {
     // Call getCrafts directly here
@@ -110,47 +144,64 @@ export function CraftDisplay({ kidID, kidName, kidAge }) {
   return (
     <div className="col-span-4 bg-gray-100">
       <div className="flex flex-col justify-center items-center">
-        <h1 className="text-4xl font-bold mb-4">Crafts of {kidName}</h1>
-        <form onSubmit={(event) => event.preventDefault()}>
-          <label className="block">Description</label>
+        <h2 className="text-4xl text-gray-500 font-bold mb-4 mt-6">
+          Crafts of: {kidName}
+        </h2>
+        <form
+          onSubmit={(event) => event.preventDefault()}
+          className="bg-white p-4 rounded-md shadow-md"
+        >
+          <div className="text-center text-lg font-medium text-gray-500">
+            Craft Creation Form
+          </div>
+          <label className="block text-gray-500 my-1">Description</label>
           <input
             type="text"
-            className="border-2 border-gray-400 rounded-md mb-4"
+            className="border-2 border-gray-400 rounded-md mb-4 px-2 py-1"
+            placeholder="Craft description"
             value={description}
             onChange={(event) => setDescription(event.target.value)}
           />
-          <label onClick={handleImageChange} className="block">
+          <label
+            onClick={handleImageChange}
+            className="block text-gray-500 my-1"
+          >
             Image
           </label>
           <input
             type="file"
             accept="image/*"
-            className="border-2 border-gray-400 rounded-md mb-4"
+            className="border-2 border-gray-400 rounded-md mb-4 px-2 py-1 text-[#979797]"
             onChange={handleImageChange}
           />
-          <label className="block">Private</label>
-          <input
-            type="checkbox"
-            className="border-2 border-gray-400 rounded-md mb-4"
-            checked={isPrivate}
-            onChange={() => setIsPrivate((prev) => !prev)}
-          />
+          <div>
+            <input
+              type="checkbox"
+              className="border-2 border-gray-400 rounded-md mb-4"
+              checked={isPrivate}
+              onChange={() => setIsPrivate((prev) => !prev)}
+            />
+            <label className="ml-2 text-gray-500">
+              Private (Check to hide from other users)
+            </label>
+          </div>
+
           <button
             onClick={createCraftAndPicture}
-            className="bg-blue-500 text-white rounded-md px-3.5 py-2 m-1 overflow-hidden relative group cursor-pointer border-2 font-medium border-blue-500"
+            className="text-white font-semibold bg-[#9fd8d1] px-3 py-1.5 rounded-md grow hover:bg-[#7fc5bf] content-center w-full"
           >
             Create Craft
           </button>
         </form>
-        <div className="flex flex-wrap justify-center">
+        <div className="grid grid-cols-3 gap-6 m-6">
           {crafts.map((craft) => {
             return (
               <div
                 key={craft.ID}
-                className="flex flex-col justify-center items-center m-4"
+                className=" bg-white rounded-md drop-shadow-md"
               >
                 <img
-                  className="w-64 h-64 object-cover rounded-md"
+                  className="object-cover rounded-md m-auto p-3"
                   src={
                     craft.pictures && craft.pictures.length > 0
                       ? craft.pictures[0].ImageUrl
@@ -158,10 +209,24 @@ export function CraftDisplay({ kidID, kidName, kidAge }) {
                   }
                   alt={craft.AtAge}
                 />
-                <p className="text-lg">{craft.Description}</p>
-                <p className="text-lg">{craft.AtAge}</p>
-                <button onClick={() => handleModify(craft)}>Modify</button>
-                <button onClick={() => deleteCraft(craft.ID)}>Delete</button>
+                <p className="text-lg mt-4 p-2">
+                  Description: {craft.Description}
+                </p>
+                <p className="text-lg p-2">At Age: {craft.AtAge}</p>
+                <div className="flex justify-around mb-4 mt-2 text-white font-medium">
+                  <button
+                    className="bg-[#d56a36] px-8 py-1 rounded-md"
+                    onClick={() => handleModify(craft)}
+                  >
+                    Modify
+                  </button>
+                  <button
+                    className="bg-[#d56a36] px-8 py-1 rounded-md"
+                    onClick={() => deleteCraft(craft.ID)}
+                  >
+                    Delete
+                  </button>
+                </div>
               </div>
             );
           })}

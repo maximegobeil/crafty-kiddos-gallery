@@ -1,4 +1,41 @@
+import axios from "axios";
+import { useState } from "react";
+
 export function SignupModal({ open, onClose, openLoginModal }) {
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  const handleFormSubmit = async (event) => {
+    event.preventDefault();
+    onClose();
+
+    try {
+      console.log("email: ", email);
+      const response = await axios.post("http://localhost:3000/signup", {
+        name: name,
+        email: email,
+        password: password,
+      });
+      console.log("User created: ", response);
+      try {
+        console.log("email: ", email);
+        const responseLogin = await axios.post("http://localhost:3000/login", {
+          email: email,
+          password: password,
+        });
+        console.log("User logged in: ", response.data);
+        const token = responseLogin.data.token;
+        document.cookie = `Authorization=${token}; Max-Age=86400; Secure; SameSite=None; path=/`;
+        window.location.reload();
+      } catch (error) {
+        console.log("Error trying to login: ", error);
+      }
+    } catch (error) {
+      console.log("Error creating user: ", error);
+    }
+  };
+
   return (
     <div
       onClick={onClose}
@@ -18,9 +55,11 @@ export function SignupModal({ open, onClose, openLoginModal }) {
         >
           X
         </button>
-        <form>
-          <h3 className="text-2xl font-bold mb-4 text-center">Sign Up</h3>
-          <div className="text-center mb-4">
+        <form onSubmit={handleFormSubmit}>
+          <h3 className="text-2xl font-bold mb-4 text-center text-[#2f2f2f]">
+            Sign Up
+          </h3>
+          <div className="text-center mb-4 text-[#2f2f2f]">
             Already registered?
             <span
               onClick={openLoginModal}
@@ -29,28 +68,40 @@ export function SignupModal({ open, onClose, openLoginModal }) {
               Sign In
             </span>
           </div>
-          <div className="mb-3">
-            <label className="block">Name</label>
-            <input type="text" placeholder="Enter name" />
+          <div className="mb-4 mt-8">
+            <label className="block text-[#2f2f2f]">Name</label>
+            <input
+              className="bg-gray-100 rounded-md p-2 mt-1"
+              type="text"
+              placeholder="Enter name"
+              onChange={(event) => setName(event.target.value)}
+            />
           </div>
           <div className="mb-3">
-            <label className="block">Email address</label>
-            <input type="email" placeholder="Enter email" />
+            <label className="block text-[#2f2f2f]">Email address</label>
+            <input
+              className="bg-gray-100 rounded-md p-2 mt-1"
+              type="email"
+              placeholder="Enter email"
+              onChange={(event) => setEmail(event.target.value)}
+            />
           </div>
-          <div className="mb-3">
-            <label className="block">Password</label>
-            <input type="password" placeholder="Enter password" />
+          <div className="mb-8">
+            <label className="block text-[#2f2f2f]">Password</label>
+            <input
+              className="bg-gray-100 rounded-md p-2 mt-1"
+              type="password"
+              placeholder="Enter password"
+              onChange={(event) => setPassword(event.target.value)}
+            />
           </div>
-          <div>
-            <a
-              href="#_"
-              className="w-full inline-flex items-center justify-center px-4 py-2 text-base font-medium leading-6 text-white whitespace-no-wrap bg-[#d56a36] border-[#d56a36] rounded-md shadow-sm hover:bg-[#d56a36] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#d56a36]"
-              data-rounded="rounded-md"
-              data-primary="blue-600"
-              data-primary-reset="{}"
+          <div className="flex justify-center">
+            <button
+              className="text-white font-semibold bg-[#9fd8d1] px-3 py-1.5 rounded-md grow hover:bg-[#7fc5bf]"
+              type="submit"
             >
               Submit
-            </a>
+            </button>
           </div>
         </form>
       </div>

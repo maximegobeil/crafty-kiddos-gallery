@@ -5,7 +5,7 @@ import { KidEditModal } from "./kidEditModal";
 
 export function UserPortal() {
   const [kidName, setKidName] = useState("");
-  const [kidAge, setKidAge] = useState(0);
+  const [kidAge, setKidAge] = useState();
   const [KidEditModalOpen, setKidEditModalOpen] = useState(false);
   const [selectedKidID, setSelectedKidID] = useState(null);
   const [selectedKidName, setSelectedKidName] = useState("");
@@ -36,6 +36,8 @@ export function UserPortal() {
         withCredentials: true,
       });
       setKids(response.data.kids.map((kid) => ({ ...kid, isSelected: false })));
+      setKidAge("");
+      setKidName("");
       console.log("User Kids: ", response.data.kids);
     } catch (error) {
       console.log("Error getting kids: ", error);
@@ -79,7 +81,7 @@ export function UserPortal() {
 
   return (
     <div className="grid grid-cols-5 h-screen">
-      <div className="col-span-1 bg-gray-200">
+      <div className="col-span-1 bg-[#a1bec6]">
         <div className="flex flex-col justify-center items-center">
           <form
             onSubmit={(event) => {
@@ -88,21 +90,25 @@ export function UserPortal() {
             }}
             className="flex flex-col justify-center items-center"
           >
-            <label className="text-2xl">Create a Kid</label>
-            <div className="flex flex-col justify-center items-center">
-              <label className="text-xl">Name</label>
+            <label className="text-2xl mt-3 text-white">Create a Kid</label>
+
+            <div className="flex flex-col items-center mx-2 mt-3">
+              <label className="text-xl p-2 self-start ml-1 text-white">
+                Name:
+              </label>
               <input
-                className="border-2 border-gray-300 rounded-md"
+                className="border-2 border-gray-300 rounded-md w-11/12 place-content-center pl-2 py-1"
                 type="text"
-                placeholder="Enter name"
+                placeholder="Enter kid name"
                 value={kidName}
                 onChange={(event) => setKidName(event.target.value)}
               />
-            </div>
-            <div className="flex flex-col justify-center items-center">
-              <label className="text-xl">Age</label>
+
+              <label className="text-xl p-2 self-start ml-1 text-white">
+                Age:
+              </label>
               <input
-                className="border-2 border-gray-300 rounded-md"
+                className="border-2 border-gray-300 rounded-md w-11/12 place-content-center pl-2 py-1"
                 type="number"
                 placeholder="Enter age"
                 value={kidAge}
@@ -111,42 +117,65 @@ export function UserPortal() {
             </div>
             <button
               type="submit"
-              className="border-2 border-gray-300 rounded-md"
+              className="border-2 border-gray-400 rounded-md m-4 px-3 py-0.5 text-white text-lg"
             >
-              Create Kid
+              Create
             </button>
           </form>
-          <div className="mt-10">my kid list from database</div>
-          <h2 className="text-xl font-bold mb-4">My Kid List</h2>
-          <ul>
+          <h2 className="text-xl font-bold my-3 text-white">My Kid List</h2>
+          <ul className="w-full">
             {kids.map((kid) => (
-              <li key={kid.ID} onClick={() => selectKid(kid.ID)}>
-                {kid.Name}, Age: {kid.Age}
-                <button
-                  onClick={(event) => {
-                    event.stopPropagation();
-                    selectKid(kid.ID);
-                    setKidEditModalOpen(true);
-                  }}
-                  className="ml-4"
-                >
-                  Modify
-                </button>
-                <button onClick={() => deleteKid(kid.ID)} className="ml-4">
-                  Delete
-                </button>
+              <li
+                className={
+                  kid.ID == selectedKidID
+                    ? "mx-3 my-2 py-2 px-3 rounded-md bg-[#6D93A0] drop-shadow-lg text-white border-4"
+                    : "mx-4 my-3 py-2 px-3 rounded-md bg-[#6D93A0] drop-shadow-md text-white"
+                }
+                key={kid.ID}
+                onClick={() => selectKid(kid.ID)}
+              >
+                <p>
+                  <span className="font-medium">Name: &nbsp;</span> {kid.Name}
+                </p>
+                <p>
+                  <span className="font-medium">Age: &nbsp;</span> {kid.Age}
+                </p>
+                <div className="flex flex-row justify-around mt-3">
+                  <button
+                    onClick={(event) => {
+                      event.stopPropagation();
+                      selectKid(kid.ID);
+                      setKidEditModalOpen(true);
+                    }}
+                    className="bg-[#a1bec6] px-4 py-0.5 rounded-md font-medium hover:bg-[#96bec9]"
+                  >
+                    Modify
+                  </button>
+                  <button
+                    onClick={() => deleteKid(kid.ID)}
+                    className="bg-[#a1bec6] px-4 py-0.5 rounded-md font-medium hover:bg-[#96bec9]"
+                  >
+                    Delete
+                  </button>
+                </div>
               </li>
             ))}
           </ul>
         </div>
       </div>
-      <div className="col-span-4 bg-gray-300">
-        {kids.find((kid) => kid.isSelected) && (
+      <div className="col-span-4 bg-gray-100">
+        {kids.find((kid) => kid.isSelected) ? (
           <CraftDisplay
             kidID={kids.find((kid) => kid.isSelected).ID}
             kidName={kids.find((kid) => kid.isSelected).Name}
             kidAge={kids.find((kid) => kid.isSelected).Age}
           />
+        ) : (
+          <div className="text-center p-4">
+            <p className="text-gray-500">
+              Please select a kid to display information.
+            </p>
+          </div>
         )}
       </div>
       <KidEditModal

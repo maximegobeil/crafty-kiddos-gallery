@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { useSpring, animated } from "react-spring";
-import { FaHeart } from "react-icons/fa";
 
 export function Card({ image, atAge, description, kidName }) {
   const [show, setShown] = useState(false);
@@ -14,20 +13,16 @@ export function Card({ image, atAge, description, kidName }) {
 
   return (
     <animated.div
-      className="flex flex-col justify-center bg-orange-100 w-80 rounded-md pr-8 pb-2 pl-8"
+      className="flex flex-col justify-center bg-[#e1e0dc] w-80 rounded-md pr-8 pb-2 pl-8 "
       style={props3}
       onMouseEnter={() => setShown(true)}
       onMouseLeave={() => setShown(false)}
     >
       <img className="rounded-md -mt-6" src={image} alt="" />
-      <p className="mt-6">{description}</p>
-      <div className="flex justify-between items-center mt-6">
-        <h3>By: {kidName}</h3>
-        <h3>Age: {atAge}</h3>
-
-        <div style={{ color: "green" }}>
-          <FaHeart />
-        </div>
+      <p className="mt-6 text-[#6e6d6d]">{description}</p>
+      <div className="flex justify-between items-center mt-4 pb-1">
+        <h3 className="text-lg text-[#6e6d6d]">By: &nbsp;{kidName}</h3>
+        <h3 className="text-lg text-[#6e6d6d]">Age: &nbsp;{atAge}</h3>
       </div>
     </animated.div>
   );

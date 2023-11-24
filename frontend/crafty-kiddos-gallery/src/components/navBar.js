@@ -14,7 +14,7 @@ export function NavBar() {
         const response = await axios.get("http://localhost:3000/validate", {
           withCredentials: true,
         });
-        console.log("User authenticated: ", response.data);
+        console.log("User authenticated: ");
         setIsLoggedIn(true);
       } catch (error) {
         console.log("User not authenticated: ", error);
@@ -38,10 +38,10 @@ export function NavBar() {
 
   return (
     <nav>
-      <navcontainer className="flex items-center justify-between w-full bg-[#99E0EC] drop-shadow">
+      <navcontainer className="flex items-center justify-between w-full bg-[#fff] drop-shadow">
         <a href="/">
-          <h1 className="text-7xl text-[#377069] mt-4 mb-4 ml-16">
-            Crafty <span className="text-[#c08b45]">Kiddos</span> Gallery
+          <h1 className="text-7xl text-[#d56a36] mt-4 mb-4 ml-16 drop-shadow-md">
+            Crafty <span className="text-[#9fd8d1]">Kiddos</span> Gallery
           </h1>
         </a>
         {!isLoggedIn ? (
@@ -49,31 +49,44 @@ export function NavBar() {
             <a
               onClick={() => setLoginModalOpen(true)}
               href="#_"
-              className="text-2xl rounded-md px-3.5 py-2 m-1 overflow-hidden relative group cursor-pointer border-2 font-medium border-[#d56a36] text-[#d56a36]"
+              className="text-2xl rounded-md px-3.5 py-2 m-1 overflow-hidden relative group cursor-pointer border-2 border-[#9fd8d1] font-medium bg-[#9fd8d1]"
             >
-              <span className="absolute w-64 h-0 transition-all duration-300 origin-center rotate-45 -translate-x-20 bg-[#d56a36] top-1/2 group-hover:h-64 group-hover:-translate-y-32 ease"></span>
-              <span className="relative text-[#d56a36] transition duration-300 group-hover:text-white ease">
+              <span className="absolute w-64 h-0 transition-all duration-300 origin-center rotate-45 -translate-x-20 bg-white top-1/2 group-hover:h-64 group-hover:-translate-y-32 ease"></span>
+              <span className="relative text-[#fff] transition duration-300  group-hover:text-[#9fd8d1] ease ">
                 Login
               </span>
             </a>
             <a
               onClick={() => setSignupModalOpen(true)}
               href="#_"
-              className="text-2xl rounded-md px-3.5 py-2 m-1 overflow-hidden relative group cursor-pointer border-2 font-medium border-[#d56a36] text-[#d56a36]"
+              className="text-2xl rounded-md px-3.5 py-2 m-1 overflow-hidden relative group cursor-pointer border-2 font-medium border-[#9fd8d1] bg-[#9fd8d1]"
             >
-              <span className="absolute w-64 h-0 transition-all duration-300 origin-center rotate-45 -translate-x-20 bg-[#d56a36] top-1/2 group-hover:h-64 group-hover:-translate-y-32 ease"></span>
-              <span className="relative text-[#d56a36] transition duration-300 group-hover:text-white ease">
+              <span className="absolute w-64 h-0 transition-all duration-300 origin-center rotate-45 -translate-x-20 bg-white top-1/2 group-hover:h-64 group-hover:-translate-y-32 ease"></span>
+              <span className="relative text-[#fff] transition duration-300 group-hover:text-[#9fd8d1] ease">
                 Sign Up
               </span>
             </a>
           </div>
         ) : (
-          <div>
-            <a href="/kids" className="mr-2">
-              My Kids
+          <div className="flex space-x-4 mr-4">
+            <a
+              href="/kids"
+              className="text-2xl rounded-md px-3.5 py-2 m-1 overflow-hidden relative group cursor-pointer border-2 border-[#9fd8d1] font-medium bg-[#9fd8d1]"
+            >
+              <span className="absolute w-64 h-0 transition-all duration-300 origin-center rotate-45 -translate-x-20 bg-white top-1/2 group-hover:h-64 group-hover:-translate-y-32 ease"></span>
+              <span className="relative text-[#fff] transition duration-300 group-hover:text-[#9fd8d1] ease">
+                My Kids
+              </span>
             </a>
-            <a href="/" onClick={handleLogout} className="mr-2">
-              Log Out
+            <a
+              href="/"
+              onClick={handleLogout}
+              className="text-2xl rounded-md px-3.5 py-2 m-1 overflow-hidden relative group cursor-pointer border-2 border-[#9fd8d1] font-medium bg-[#9fd8d1]"
+            >
+              <span className="absolute w-64 h-0 transition-all duration-300 origin-center rotate-45 -translate-x-20 bg-white top-1/2 group-hover:h-64 group-hover:-translate-y-32 ease"></span>
+              <span className="relative text-[#fff] transition duration-300 group-hover:text-[#9fd8d1] ease">
+                Logout
+              </span>
             </a>
           </div>
         )}

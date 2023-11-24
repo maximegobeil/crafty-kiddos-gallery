@@ -2,20 +2,13 @@ import { useCallback, useEffect, useState } from "react";
 import { Card } from "./card";
 import { CarouselBuilder } from "./carouselBuilder";
 import axios from "axios";
-import { AiOutlineCaretUp, AiOutlineCaretDown } from "react-icons/ai";
 
 export function DisplayCards() {
   const [craftList, setCraftList] = useState([]);
-  const [isOpen, setIsOpen] = useState(false);
-  const ageGroup = [
-    { group: "0-4 Tiny Tots", icon: "🍼" },
-    { group: "5-9 Little Explorers", icon: "🌍" },
-    { group: "10-12 Junior Adventurer", icon: "🚀" },
-    { group: "13-15 Teen Trailblazers ", icon: "🦸" },
-  ];
-  /*const myurl =
+  const [isDummyData, setIsDummyData] = useState(false);
+  const myurl =
     "https://pyxis.nymag.com/v1/imgs/24c/d4a/6fdd64a7c835b8325065b72e6fbfe59fb9-09-family-drawing1.rsocial.w1200.jpg";
-  let cards = [
+  let card = [
     {
       key: 15,
       content: <Card image={myurl} />,
@@ -68,7 +61,7 @@ export function DisplayCards() {
         />
       ),
     },
-  ];*/
+  ];
 
   const getRandomCrafts = useCallback(async () => {
     try {
@@ -94,8 +87,11 @@ export function DisplayCards() {
         };
       });
       setCraftList(mappe);
+      setIsDummyData(false);
     } catch (error) {
       console.log("Error getting randomcrafts: ", error);
+      setCraftList(card);
+      setIsDummyData(true);
     }
   });
   useEffect(() => {
@@ -103,35 +99,18 @@ export function DisplayCards() {
   }, []);
 
   return (
-    <div className="bg-[#9fd8d1] flex flex-grow min-w-full">
+    <div className="bg-[#a1bec6] flex flex-grow min-w-full">
       <div className="m-10 mx-auto w-full">
+        <div>
+          {isDummyData && (
+            <h4 className="text-center text-xl mt-2">
+              ---&gt; &nbsp;&nbsp;&nbsp;&nbsp;Connection to database error this
+              is some Dummy Data&nbsp;&nbsp;&nbsp;&nbsp; &lt;---
+            </h4>
+          )}
+        </div>
         <div className="flex flex-col justify-center items-center h-5/6">
           <CarouselBuilder cards={craftList} offset={3} showArrows={false} />
-        </div>
-        <div>
-          <div className="relative flex place-content-center">
-            <button
-              onClick={() => setIsOpen((prev) => !prev)}
-              className=" bg-blue-400 flex felx-col justify-between rounded-md p-4 mx-4 w-1/6
-               border-4 border-transparent active:border-white duration-300 active:text-white"
-            >
-              Age Group
-              {!isOpen ? <AiOutlineCaretDown /> : <AiOutlineCaretUp />}
-            </button>
-            {isOpen && (
-              <div className="bg-white absolute bottom-10 z-40">
-                {ageGroup.map((item, index) => (
-                  <div key={index} className="flex place-content-between p-2">
-                    <h3>{item.group}</h3>
-                    <h3>{item.icon}</h3>
-                  </div>
-                ))}
-              </div>
-            )}
-            <button className="bg-blue-400 rounded-md p-4 mx-4 w-1/8">
-              Generate New Crafts
-            </button>
-          </div>
         </div>
       </div>
     </div>

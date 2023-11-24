@@ -15,13 +15,12 @@ export function CarouselBuilder(props) {
       }))
     : [];
   if (cardsInfo.length === 0) {
-    return <p>No cards to display.</p>;
+    return <p>Loading, No cards to display yet.</p>;
   }
   const [offsetRadius, setOffsetRadius] = useState(2);
   const [goToSlide, setGoToSlide] = useState(null);
   const [cards] = useState(cardsInfo);
   const [showArrows, setShowArrows] = useState(false);
-  const [index, setIndex] = useState(4);
 
   useEffect(() => {
     setOffsetRadius(props.offset);

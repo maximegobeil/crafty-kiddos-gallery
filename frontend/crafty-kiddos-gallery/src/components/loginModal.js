@@ -15,12 +15,12 @@ export function LoginModal({ open, onClose, openSignupModal }) {
         email: email,
         password: password,
       });
-      console.log("User created: ", response.data);
+      console.log("User logged in: ");
       const token = response.data.token;
       document.cookie = `Authorization=${token}; Max-Age=86400; Secure; SameSite=None; path=/`;
       window.location.reload();
     } catch (error) {
-      console.log("Error creating user: ", error);
+      console.log("Error trying to login: ", error);
     }
   };
 
@@ -44,8 +44,10 @@ export function LoginModal({ open, onClose, openSignupModal }) {
           X
         </button>
         <form onSubmit={handleFormSubmit}>
-          <h3 className="text-2xl font-bold mb-4 text-center">Sign In</h3>
-          <div className="text-center mb-4">
+          <h3 className="text-2xl font-bold mb-4 text-center text-[#2f2f2f]">
+            Sign In
+          </h3>
+          <div className="text-center mb-4 text-[#2f2f2f]">
             Not registered yet?
             <span
               onClick={openSignupModal}
@@ -54,26 +56,33 @@ export function LoginModal({ open, onClose, openSignupModal }) {
               Sign Up
             </span>
           </div>
-          <div className="mb-3">
-            <label className="block">Email address</label>
+          <div className="mb-4 mt-8">
+            <label className="block text-[#2f2f2f]">Email address:</label>
             <input
+              className="bg-gray-100 rounded-md p-2 mt-1"
               type="email"
               placeholder="Enter email"
               value={email}
               onChange={(event) => setEmail(event.target.value)}
             />
           </div>
-          <div className="mb-3">
-            <label className="block">Password</label>
+          <div className="mb-8">
+            <label className="block text-[#2f2f2f]">Password:</label>
             <input
+              className="bg-gray-100 rounded-md p-2 mt-1"
               type="password"
               placeholder="Enter password"
               value={password}
               onChange={(event) => setPassword(event.target.value)}
             />
           </div>
-          <div>
-            <button type="submit">Submit button</button>
+          <div className="flex justify-center">
+            <button
+              className="text-white font-semibold bg-[#9fd8d1] px-3 py-1.5 rounded-md grow hover:bg-[#7fc5bf]"
+              type="submit"
+            >
+              Submit
+            </button>
           </div>
         </form>
       </div>
