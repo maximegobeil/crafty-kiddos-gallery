@@ -87,36 +87,7 @@ export function CraftDisplay({ kidID, kidName, kidAge }) {
     }
   };
 
-  /*const getCrafts = async () => {
-    try {
-      const craftsResponse = await axios.get(
-        `http://localhost:3000/kids/${kidID}/crafts`,
-        { withCredentials: true }
-      );
-      console.log("Crafts: ", craftsResponse.data);
-      const craftsWithPictures = craftsResponse.data.crafts.map(
-        async (craft) => {
-          const picturesResponse = await axios.get(
-            `http://localhost:3000/kids/${kidID}/crafts/${craft.ID}/pictures`,
-            { withCredentials: true }
-          );
-          return {
-            ...craft,
-            pictures: picturesResponse.data.pictures,
-          };
-        }
-      );
-
-      Promise.all(craftsWithPictures).then((craftsWithPictures) => {
-        setCrafts(craftsWithPictures);
-      });
-    } catch (error) {
-      console.log("Error getting crafts: ", error);
-    }
-  };*/
-
   useEffect(() => {
-    // Call getCrafts directly here
     getCrafts();
   }, [kidID]);
 

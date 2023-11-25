@@ -129,11 +129,11 @@ func CraftDelete(c *gin.Context) {
 }
 
 func CraftReadRandom(c *gin.Context) {
-	// Get 20 random crafts
-	var first20Crafts []models.Craft
-	initializers.DB.Preload("Pictures").Order("RANDOM()").Limit(20).Find(&first20Crafts)
+	// Get 50 random crafts
+	var first50Crafts []models.Craft
+	initializers.DB.Preload("Pictures").Order("RANDOM()").Limit(50).Find(&first50Crafts)
 	// Respond
 	c.JSON(200, gin.H{
-		"random":first20Crafts,
+		"random":first50Crafts,
 	})
 }
