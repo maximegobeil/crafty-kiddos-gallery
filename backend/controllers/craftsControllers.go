@@ -46,7 +46,7 @@ func CraftReadALl(c *gin.Context) {
 	// Get the craft
 	var crafts []models.Craft
 	id, _ := strconv.Atoi(c.Param("id"))
-	initializers.DB.Where("kid_id = ?", id).Find(&crafts)
+	initializers.DB.Preload("Pictures").Where("kid_id = ?", id).Find(&crafts)
 	// Respond
 	c.JSON(200, gin.H{
 		"crafts": crafts,

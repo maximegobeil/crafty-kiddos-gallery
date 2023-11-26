@@ -16,38 +16,38 @@ export function DisplayCards() {
     {
       key: 17,
       content: (
-        <Card image="https://crafty-kiddos-gallery.s3.us-east-2.amazonaws.com/dummy2.png" />
+        <Card image="https://crafty-kiddos-gallery.s3.us-east-2.amazonaws.com/dummy2.jpg" />
       ),
     },
     {
       key: 3,
       content: (
-        <Card image="https://crafty-kiddos-gallery.s3.us-east-2.amazonaws.com/dummy3.png" />
+        <Card image="https://crafty-kiddos-gallery.s3.us-east-2.amazonaws.com/dummy3.jpeg" />
       ),
     },
     {
       key: 4,
       content: (
-        <Card image="https://crafty-kiddos-gallery.s3.us-east-2.amazonaws.com/dummy4.png" />
+        <Card image="https://crafty-kiddos-gallery.s3.us-east-2.amazonaws.com/dummy4.jpeg" />
       ),
     },
     {
       key: 5,
       content: (
-        <Card image="https://crafty-kiddos-gallery.s3.us-east-2.amazonaws.com/dummy5.png" />
+        <Card image="https://crafty-kiddos-gallery.s3.us-east-2.amazonaws.com/dummy5.jpg" />
       ),
     },
     {
       key: 6,
       content: (
-        <Card image="https://crafty-kiddos-gallery.s3.us-east-2.amazonaws.com/dummy6.png" />
+        <Card image="https://crafty-kiddos-gallery.s3.us-east-2.amazonaws.com/dummy6.jpg" />
       ),
     },
     {
       key: 7,
       content: (
         <Card
-          image="https://crafty-kiddos-gallery.s3.us-east-2.amazonaws.com/dummy7.png"
+          image="https://crafty-kiddos-gallery.s3.us-east-2.amazonaws.com/dummy7.jpg"
           alt="4"
         />
       ),
@@ -56,7 +56,7 @@ export function DisplayCards() {
       key: 8,
       content: (
         <Card
-          image="https://crafty-kiddos-gallery.s3.us-east-2.amazonaws.com/dummy8.png"
+          image="https://crafty-kiddos-gallery.s3.us-east-2.amazonaws.com/dummy8.jpg"
           alt="4"
         />
       ),

@@ -56,33 +56,20 @@ export function CraftDisplay({ kidID, kidName, kidAge }) {
 
   const getCrafts = async () => {
     try {
-      const craftsResponse = await axios.get(
+      const response = await axios.get(
         `http://localhost:3000/kids/${kidID}/crafts`,
         { withCredentials: true }
       );
 
-      console.log("Crafts: ", craftsResponse.data);
+      console.log("Crafts: ", response.data);
 
-      const craftsWithPictures = await Promise.all(
-        craftsResponse.data.crafts.map(async (craft) => {
-          try {
-            const picturesResponse = await axios.get(
-              `http://localhost:3000/kids/${kidID}/crafts/${craft.ID}/pictures`,
-              { withCredentials: true }
-            );
-
-            return {
-              ...craft,
-              pictures: picturesResponse.data.pictures,
-            };
-          } catch (picturesError) {
-            console.log("Error getting pictures: ", picturesError);
-            return craft; // Return the craft without pictures in case of error
-          }
-        })
-      );
-
-      setCrafts(craftsWithPictures);
+      const mappe = response.data.crafts.map((item) => {
+        return {
+          ...item,
+          pictures: response.data.pictures,
+        };
+      });
+      setCrafts(mappe);
     } catch (error) {
       console.log("Error getting crafts: ", error);
     }
@@ -177,8 +164,8 @@ export function CraftDisplay({ kidID, kidName, kidAge }) {
                   width={400}
                   height={400}
                   src={
-                    craft.pictures && craft.pictures.length > 0
-                      ? craft.pictures[0].ImageUrl
+                    craft.Pictures && craft.Pictures.length > 0
+                      ? craft.Pictures[0].ImageUrl
                       : ""
                   }
                   alt={craft.AtAge}
