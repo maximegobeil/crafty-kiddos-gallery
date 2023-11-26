@@ -116,7 +116,7 @@ func Login(c *gin.Context) {
 }
 
 func Logout(c *gin.Context) {
-	c.SetCookie("Authorization", "", -3600, "", "", false, true)
+	c.SetCookie("Authorization", "", -3600, "", "", true, true)
 
 	c.JSON(http.StatusOK, gin.H{
 		"message": "loged out",

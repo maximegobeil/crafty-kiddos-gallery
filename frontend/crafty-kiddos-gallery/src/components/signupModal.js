@@ -55,7 +55,7 @@ export function SignupModal({ open, onClose, openLoginModal }) {
         >
           X
         </button>
-        <form onSubmit={handleFormSubmit}>
+        <form name="signup" onSubmit={handleFormSubmit}>
           <h3 className="text-2xl font-bold mb-4 text-center text-[#2f2f2f]">
             Sign Up
           </h3>

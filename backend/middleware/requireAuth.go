@@ -22,7 +22,7 @@ func RequireAuth(c *gin.Context) {
 	}
 
 	// Set CORS headers
-	c.Header("Access-Control-Allow-Origin", "http://localhost:5000")  // Replace with the actual origin of your frontend
+	c.Header("Access-Control-Allow-Origin", "https://crafty-kiddos-gallery.vercel.app")  // Replace with the actual origin of your frontend
 	c.Header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE")
 	c.Header("Access-Control-Allow-Headers", "Content-Type, Authorization")
 

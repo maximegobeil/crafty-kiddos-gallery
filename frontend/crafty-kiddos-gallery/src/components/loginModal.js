@@ -43,7 +43,7 @@ export function LoginModal({ open, onClose, openSignupModal }) {
         >
           X
         </button>
-        <form onSubmit={handleFormSubmit}>
+        <form name="login" onSubmit={handleFormSubmit}>
           <h3 className="text-2xl font-bold mb-4 text-center text-[#2f2f2f]">
             Sign In
           </h3>

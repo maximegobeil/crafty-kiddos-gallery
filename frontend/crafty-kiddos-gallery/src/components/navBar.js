@@ -33,7 +33,7 @@ export function NavBar() {
     setLoginModalOpen(false);
   };
   const handleLogout = () => {
-    document.cookie = `Authorization=; Max-Age=-1; path=/`;
+    document.cookie = `Authorization=; Max-Age=-1; path=/; domain:https://crafty-kiddos-gallery.vercel.app`;
     window.location.reload();
   };
 

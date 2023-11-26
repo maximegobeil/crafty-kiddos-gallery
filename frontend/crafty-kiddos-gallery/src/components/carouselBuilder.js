@@ -3,7 +3,7 @@ import { config } from "react-spring";
 import React, { useState, useEffect } from "react";
 
 const Carousel = dynamic(() => import("react-spring-3d-carousel"), {
-  loading: () => <p>Loading...</p>,
+  loading: () => <p className="text-center">Loading...</p>,
   ssr: false, // Set ssr to false to prevent server-side rendering
 });
 
