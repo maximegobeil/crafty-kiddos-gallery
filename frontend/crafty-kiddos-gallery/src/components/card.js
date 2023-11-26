@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useSpring, animated } from "react-spring";
+import Image from "next/image";
 
 export function Card({ image, atAge, description, kidName }) {
   const [show, setShown] = useState(false);

@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { LoginModal } from "./loginModal";
 import { SignupModal } from "./signupModal";
 import axios from "axios";
+import Link from "next/link";
 
 export function NavBar() {
   const [loginModalOpen, setLoginModalOpen] = useState(false);

@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { CraftEditModal } from "./craftEditModal";
+import Image from "next/image";
 
 export function CraftDisplay({ kidID, kidName, kidAge }) {
   const [crafts, setCrafts] = useState([]);
