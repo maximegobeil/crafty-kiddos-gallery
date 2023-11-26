@@ -107,6 +107,7 @@ export function CraftDisplay({ kidID, kidName, kidAge }) {
           Crafts of: {kidName}
         </h2>
         <form
+          name="craftCreationForm"
           onSubmit={(event) => event.preventDefault()}
           className="bg-white p-4 rounded-md shadow-md"
         >

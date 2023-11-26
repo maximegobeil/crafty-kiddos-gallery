@@ -39,7 +39,7 @@ export function NavBar() {
 
   return (
     <nav>
-      <navcontainer className="flex items-center justify-between w-full bg-[#fff] drop-shadow">
+      <div className="flex items-center justify-between w-full bg-[#fff] drop-shadow">
         <Link href="/">
           <h1 className="text-7xl text-[#d56a36] mt-4 mb-4 ml-16 drop-shadow-md">
             Crafty <span className="text-[#9fd8d1]">Kiddos</span> Gallery
@@ -91,7 +91,7 @@ export function NavBar() {
             </Link>
           </div>
         )}
-      </navcontainer>
+      </div>
       <LoginModal
         open={loginModalOpen}
         onClose={() => setLoginModalOpen(false)}

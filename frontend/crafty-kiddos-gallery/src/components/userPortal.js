@@ -5,7 +5,7 @@ import { KidEditModal } from "./kidEditModal";
 
 export function UserPortal() {
   const [kidName, setKidName] = useState("");
-  const [kidAge, setKidAge] = useState();
+  const [kidAge, setKidAge] = useState("");
   const [KidEditModalOpen, setKidEditModalOpen] = useState(false);
   const [selectedKidID, setSelectedKidID] = useState(null);
   const [selectedKidName, setSelectedKidName] = useState("");
@@ -84,6 +84,7 @@ export function UserPortal() {
       <div className="col-span-1 bg-[#a1bec6]">
         <div className="flex flex-col justify-center items-center">
           <form
+            name="createKid"
             onSubmit={(event) => {
               event.preventDefault();
               createKid();
