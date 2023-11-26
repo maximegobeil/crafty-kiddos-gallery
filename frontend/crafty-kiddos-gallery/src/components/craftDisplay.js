@@ -174,6 +174,8 @@ export function CraftDisplay({ kidID, kidName, kidAge }) {
               >
                 <Image
                   className="object-cover rounded-md m-auto p-3"
+                  width={400}
+                  height={400}
                   src={
                     craft.pictures && craft.pictures.length > 0
                       ? craft.pictures[0].ImageUrl
