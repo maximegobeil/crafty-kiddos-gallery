@@ -54,9 +54,9 @@ func Signup(c *gin.Context) {
 }
 
 func Login(c *gin.Context) {
-	c.Header("Access-Control-Allow-Origin", "http://localhost:5000")  // Replace with the actual origin of your frontend
+	/*c.Header("Access-Control-Allow-Origin", "https://crafty-kiddos-gallery.vercel.app")  // Replace with the actual origin of your frontend
 	c.Header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE")
-	c.Header("Access-Control-Allow-Headers", "Content-Type, Authorization")
+	c.Header("Access-Control-Allow-Headers", "Content-Type, Authorization")*/
 	
 	
 	// Get email & send request body

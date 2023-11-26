@@ -24,7 +24,7 @@ export function SignupModal({ open, onClose, openLoginModal }) {
           email: email,
           password: password,
         });
-        console.log("User logged in: ", response.data);
+        console.log("User logged in: ", responseLogin.data);
         const token = responseLogin.data.token;
         document.cookie = `Authorization=${token}; Max-Age=86400; Secure; SameSite=None; path=/`;
         window.location.reload();

@@ -13,6 +13,10 @@ import (
 )
 
 func RequireAuth(c *gin.Context) {
+	// Set CORS headers
+	c.Header("Access-Control-Allow-Origin", "https://crafty-kiddos-gallery.vercel.app")  // Replace with the actual origin of your frontend
+	c.Header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE")
+	c.Header("Access-Control-Allow-Headers", "Content-Type, Authorization")
 
 	// Get the cookie off request
 	tokenString, err := c.Cookie("Authorization")
@@ -21,10 +25,6 @@ func RequireAuth(c *gin.Context) {
 		c.AbortWithStatus(http.StatusUnauthorized)
 	}
 
-	// Set CORS headers
-	c.Header("Access-Control-Allow-Origin", "https://crafty-kiddos-gallery.vercel.app")  // Replace with the actual origin of your frontend
-	c.Header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE")
-	c.Header("Access-Control-Allow-Headers", "Content-Type, Authorization")
 
 	fmt.Println("Token String:", tokenString)
 	// Validate it
