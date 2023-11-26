@@ -171,7 +171,7 @@ export function CraftDisplay({ kidID, kidName, kidAge }) {
                 key={craft.ID}
                 className=" bg-white rounded-md drop-shadow-md"
               >
-                <img
+                <Image
                   className="object-cover rounded-md m-auto p-3"
                   src={
                     craft.pictures && craft.pictures.length > 0

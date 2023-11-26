@@ -63,7 +63,7 @@ export function DisplayCards() {
     },
   ];
 
-  const getRandomCrafts = useCallback(async () => {
+  const getRandomCrafts = async () => {
     try {
       const response = await axios.get("http://localhost:3000/randomcrafts", {
         withCredentials: true,
@@ -93,7 +93,7 @@ export function DisplayCards() {
       setCraftList(card);
       setIsDummyData(true);
     }
-  });
+  };
   useEffect(() => {
     getRandomCrafts();
   }, []);

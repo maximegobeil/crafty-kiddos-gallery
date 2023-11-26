@@ -18,7 +18,7 @@ export function Card({ image, atAge, description, kidName }) {
       onMouseEnter={() => setShown(true)}
       onMouseLeave={() => setShown(false)}
     >
-      <img className="rounded-md -mt-6" src={image} alt="" />
+      <Image className="rounded-md -mt-6" src={image} alt="" />
       <p className="mt-6 text-[#6e6d6d]">{description}</p>
       <div className="flex justify-between items-center mt-4 pb-1">
         <h3 className="text-lg text-[#6e6d6d]">By: &nbsp;{kidName}</h3>

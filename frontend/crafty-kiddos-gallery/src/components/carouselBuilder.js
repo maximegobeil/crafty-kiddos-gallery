@@ -17,14 +17,14 @@ export function CarouselBuilder(props) {
   if (cardsInfo.length === 0) {
     return <p>Loading, No cards to display yet.</p>;
   }
-  const [offsetRadius, setOffsetRadius] = useState(2);
+  const [offsetRadius, setOffsetRadius] = useState(props.offset || 2);
   const [goToSlide, setGoToSlide] = useState(null);
   const [cards] = useState(cardsInfo);
   const [showArrows, setShowArrows] = useState(false);
 
   useEffect(() => {
-    setOffsetRadius(props.offset);
-    setShowArrows(props.showArrows);
+    setOffsetRadius(props.offset || 2);
+    setShowArrows(props.showArrows || false);
   }, [props.offset, props.showArrows]);
 
   return (

@@ -1,6 +1,6 @@
 import { AiOutlineCaretUp, AiOutlineCaretDown } from "react-icons/ai";
-
 import { useState } from "react";
+import { Card } from "./card";
 
 export function Filter() {
   const ageGroup = [

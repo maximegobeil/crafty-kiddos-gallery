@@ -39,14 +39,14 @@ export function NavBar() {
   return (
     <nav>
       <navcontainer className="flex items-center justify-between w-full bg-[#fff] drop-shadow">
-        <a href="/">
+        <Link href="/">
           <h1 className="text-7xl text-[#d56a36] mt-4 mb-4 ml-16 drop-shadow-md">
             Crafty <span className="text-[#9fd8d1]">Kiddos</span> Gallery
           </h1>
-        </a>
+        </Link>
         {!isLoggedIn ? (
           <div className="flex space-x-4 mr-4">
-            <a
+            <Link
               onClick={() => setLoginModalOpen(true)}
               href="#_"
               className="text-2xl rounded-md px-3.5 py-2 m-1 overflow-hidden relative group cursor-pointer border-2 border-[#9fd8d1] font-medium bg-[#9fd8d1]"
@@ -55,8 +55,8 @@ export function NavBar() {
               <span className="relative text-[#fff] transition duration-300  group-hover:text-[#9fd8d1] ease ">
                 Login
               </span>
-            </a>
-            <a
+            </Link>
+            <Link
               onClick={() => setSignupModalOpen(true)}
               href="#_"
               className="text-2xl rounded-md px-3.5 py-2 m-1 overflow-hidden relative group cursor-pointer border-2 font-medium border-[#9fd8d1] bg-[#9fd8d1]"
@@ -65,11 +65,11 @@ export function NavBar() {
               <span className="relative text-[#fff] transition duration-300 group-hover:text-[#9fd8d1] ease">
                 Sign Up
               </span>
-            </a>
+            </Link>
           </div>
         ) : (
           <div className="flex space-x-4 mr-4">
-            <a
+            <Link
               href="/kids"
               className="text-2xl rounded-md px-3.5 py-2 m-1 overflow-hidden relative group cursor-pointer border-2 border-[#9fd8d1] font-medium bg-[#9fd8d1]"
             >
@@ -77,8 +77,8 @@ export function NavBar() {
               <span className="relative text-[#fff] transition duration-300 group-hover:text-[#9fd8d1] ease">
                 My Kids
               </span>
-            </a>
-            <a
+            </Link>
+            <Link
               href="/"
               onClick={handleLogout}
               className="text-2xl rounded-md px-3.5 py-2 m-1 overflow-hidden relative group cursor-pointer border-2 border-[#9fd8d1] font-medium bg-[#9fd8d1]"
@@ -87,7 +87,7 @@ export function NavBar() {
               <span className="relative text-[#fff] transition duration-300 group-hover:text-[#9fd8d1] ease">
                 Logout
               </span>
-            </a>
+            </Link>
           </div>
         )}
       </navcontainer>
