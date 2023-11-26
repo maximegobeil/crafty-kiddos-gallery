@@ -8,26 +8,23 @@ const Carousel = dynamic(() => import("react-spring-3d-carousel"), {
 });
 
 export function CarouselBuilder(props) {
-  const cardsInfo = Array.isArray(props.cards)
-    ? props.cards.map((element, index) => ({
-        ...element,
-        onClick: () => setGoToSlide(index),
-      }))
-    : [];
-
   const [offsetRadius, setOffsetRadius] = useState(2);
   const [goToSlide, setGoToSlide] = useState(null);
-  const [cards] = useState(cardsInfo);
   const [showArrows, setShowArrows] = useState(false);
+  const [cards, setCards] = useState([]);
 
   useEffect(() => {
     setOffsetRadius(props.offset);
     setShowArrows(props.showArrows);
-  }, [props.offset, props.showArrows]);
-
-  if (cardsInfo.length === 0) {
-    return <p>Loading, No cards to display yet.</p>;
-  }
+    setCards(
+      Array.isArray(props.cards)
+        ? props.cards.map((element, index) => ({
+            ...element,
+            onClick: () => setGoToSlide(index),
+          }))
+        : []
+    );
+  }, [props.offset, props.showArrows, props.cards]);
 
   return (
     <div className="w-[90%]">

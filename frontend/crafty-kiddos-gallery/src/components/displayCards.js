@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Card } from "./card";
 import { CarouselBuilder } from "./carouselBuilder";
 import axios from "axios";
@@ -77,7 +77,7 @@ export function DisplayCards() {
               image={
                 item.Pictures && item.Pictures.length > 0
                   ? item.Pictures[0].ImageUrl
-                  : "#_"
+                  : "https://crafty-kiddos-gallery.s3.us-east-2.amazonaws.com/placeholderimg.png"
               }
               atAge={item.AtAge}
               description={item.Description}
