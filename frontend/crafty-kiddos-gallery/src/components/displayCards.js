@@ -66,7 +66,7 @@ export function DisplayCards() {
   const getRandomCrafts = async () => {
     try {
       const response = await axios.get(
-        `${process.env.REACT_APP_API_PATH}/randomcrafts`,
+        "https://crafty-kiddos-gallery-api.onrender.com/randomcrafts",
         {
           withCredentials: true,
         }
