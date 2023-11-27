@@ -11,10 +11,13 @@ export function LoginModal({ open, onClose, openSignupModal }) {
 
     try {
       console.log("email: ", email);
-      const response = await axios.post("http://localhost:3000/login", {
-        email: email,
-        password: password,
-      });
+      const response = await axios.post(
+        "https://crafty-kiddos-gallery-api.onrender.com/login",
+        {
+          email: email,
+          password: password,
+        }
+      );
       console.log("User logged in: ");
       const token = response.data.token;
       document.cookie = `Authorization=${token}; Max-Age=86400; Secure; SameSite=None; path=/`;

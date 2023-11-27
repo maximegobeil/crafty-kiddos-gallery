@@ -20,7 +20,7 @@ export function CraftDisplay({ kidID, kidName, kidAge }) {
     try {
       // Step 1 - Create the craft
       const response = await axios.post(
-        `http://localhost:3000/kids/${kidID}/crafts`,
+        `https://crafty-kiddos-gallery-api.onrender.com/kids/${kidID}/crafts`,
         {
           kidName: kidName,
           atAge: kidAge,
@@ -34,7 +34,7 @@ export function CraftDisplay({ kidID, kidName, kidAge }) {
       const formData = new FormData();
       formData.append("image", image);
       const pictureResponse = await axios.post(
-        `http://localhost:3000/kids/${kidID}/crafts/${craftID}/pictures`,
+        `https://crafty-kiddos-gallery-api.onrender.com/kids/${kidID}/crafts/${craftID}/pictures`,
         formData,
         {
           headers: {
@@ -57,7 +57,7 @@ export function CraftDisplay({ kidID, kidName, kidAge }) {
   const getCrafts = async () => {
     try {
       const response = await axios.get(
-        `http://localhost:3000/kids/${kidID}/crafts`,
+        `https://crafty-kiddos-gallery-api.onrender.com/kids/${kidID}/crafts`,
         { withCredentials: true }
       );
 
@@ -82,7 +82,7 @@ export function CraftDisplay({ kidID, kidName, kidAge }) {
   const deleteCraft = async (craftID) => {
     try {
       const response = await axios.delete(
-        `http://localhost:3000/kids/${kidID}/crafts/${craftID}`,
+        `https://crafty-kiddos-gallery-api.onrender.com/kids/${kidID}/crafts/${craftID}`,
         { withCredentials: true }
       );
       console.log("Craft deleted: ", response.data);

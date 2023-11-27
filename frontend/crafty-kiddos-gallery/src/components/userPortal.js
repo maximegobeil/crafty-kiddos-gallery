@@ -14,7 +14,7 @@ export function UserPortal() {
   const createKid = async () => {
     try {
       const response = await axios.post(
-        "http://localhost:3000/kids",
+        "https://crafty-kiddos-gallery-api.onrender.com/kids",
         {
           name: kidName,
           age: Number(kidAge),
@@ -32,9 +32,12 @@ export function UserPortal() {
   const [kids, setKids] = useState([]);
   const getAllKids = async () => {
     try {
-      const response = await axios.get("http://localhost:3000/kids", {
-        withCredentials: true,
-      });
+      const response = await axios.get(
+        "https://crafty-kiddos-gallery-api.onrender.com/kids",
+        {
+          withCredentials: true,
+        }
+      );
       setKids(response.data.kids.map((kid) => ({ ...kid, isSelected: false })));
       setKidAge("");
       setKidName("");
@@ -69,7 +72,7 @@ export function UserPortal() {
   const deleteKid = async (kidID) => {
     try {
       const response = await axios.delete(
-        `http://localhost:3000/kids/${kidID}`,
+        `https://crafty-kiddos-gallery-api.onrender.com/kids/${kidID}`,
         { withCredentials: true }
       );
       console.log("Kid deleted: ", response.data);

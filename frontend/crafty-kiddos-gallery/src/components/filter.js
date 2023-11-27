@@ -16,9 +16,12 @@ export function Filter() {
 
   const getRandomCrafts = async () => {
     try {
-      const response = await axios.get("http://localhost:3000/randomcrafts", {
-        withCredentials: true,
-      });
+      const response = await axios.get(
+        "https://crafty-kiddos-gallery-api.onrender.com/randomcrafts",
+        {
+          withCredentials: true,
+        }
+      );
       console.log("response: ", response.data.random);
 
       const mappe = response.data.random.map((item) => {

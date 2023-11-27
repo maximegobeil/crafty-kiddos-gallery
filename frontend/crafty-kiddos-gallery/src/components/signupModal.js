@@ -12,18 +12,24 @@ export function SignupModal({ open, onClose, openLoginModal }) {
 
     try {
       console.log("email: ", email);
-      const response = await axios.post("http://localhost:3000/signup", {
-        name: name,
-        email: email,
-        password: password,
-      });
+      const response = await axios.post(
+        "https://crafty-kiddos-gallery-api.onrender.com/signup",
+        {
+          name: name,
+          email: email,
+          password: password,
+        }
+      );
       console.log("User created: ", response);
       try {
         console.log("email: ", email);
-        const responseLogin = await axios.post("http://localhost:3000/login", {
-          email: email,
-          password: password,
-        });
+        const responseLogin = await axios.post(
+          "https://crafty-kiddos-gallery-api.onrender.com/login",
+          {
+            email: email,
+            password: password,
+          }
+        );
         console.log("User logged in: ", responseLogin.data);
         const token = responseLogin.data.token;
         document.cookie = `Authorization=${token}; Max-Age=86400; Secure; SameSite=None; path=/`;

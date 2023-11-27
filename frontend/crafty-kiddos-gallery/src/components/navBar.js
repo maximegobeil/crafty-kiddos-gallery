@@ -12,9 +12,12 @@ export function NavBar() {
   useEffect(() => {
     const checkAuthentication = async () => {
       try {
-        const response = await axios.get("http://localhost:3000/validate", {
-          withCredentials: true,
-        });
+        const response = await axios.get(
+          "https://crafty-kiddos-gallery-api.onrender.com/validate",
+          {
+            withCredentials: true,
+          }
+        );
         console.log("User authenticated: ");
         setIsLoggedIn(true);
       } catch (error) {
@@ -33,7 +36,7 @@ export function NavBar() {
     setLoginModalOpen(false);
   };
   const handleLogout = () => {
-    document.cookie = `Authorization=; Max-Age=-1; path=/; domain:https://localhost:3000; SameSite=None; Secure`;
+    document.cookie = `Authorization=; Max-Age=-1; path=/; domain:https://crafty-kiddos-gallery-api.onrender.com; SameSite=None; Secure`;
     window.location.reload();
   };
 
