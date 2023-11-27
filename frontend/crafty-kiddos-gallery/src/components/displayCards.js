@@ -65,9 +65,12 @@ export function DisplayCards() {
 
   const getRandomCrafts = async () => {
     try {
-      const response = await axios.get("http://localhost:3000/randomcrafts", {
-        withCredentials: true,
-      });
+      const response = await axios.get(
+        `${process.env.REACT_APP_API_PATH}/randomcrafts`,
+        {
+          withCredentials: true,
+        }
+      );
 
       const mappe = response.data.random.map((item) => {
         return {
