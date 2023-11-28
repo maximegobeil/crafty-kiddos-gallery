@@ -6,9 +6,9 @@
 
 ### About The Project
 
-Save and share your kid craft or drawing with others before you put them to the "storage bin".
-I did this project as my final project of my Course Careers Software Development Fundamentals.
-For the backend, I used Golang with gorm to create the API. I'm using a cloud based PostgreSQL database with ElephantSQL. Pictures are uploaded & stored to Amazon S3. It's hosted with Render.
+Save and share your kid craft or drawing with others before you put them to the "storage bin".<br>
+I did this project as my final project of my Course Careers Software Development Fundamentals.<br>
+For the backend, I used Golang with gorm to create the API. I'm using a cloud based PostgreSQL database with ElephantSQL. Pictures are uploaded & stored to Amazon S3. It's hosted with Render.<br>
 For the frontend, I used Next.js. It's hosted with vercel.
 
 ### How I Prepared For The Project
