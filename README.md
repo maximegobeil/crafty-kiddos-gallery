@@ -1,7 +1,7 @@
 # Crafty Kiddos Gallery
 
 <p align="center">
-  <img src="images/home.png" alt="home page" width="300" height="300">
+  <img src="images/home.png" alt="home page" height="300">
 </p>
 
 ### About The Project
@@ -16,13 +16,13 @@ For the frontend, I used Next.js. It's hosted with vercel.
 With figma I created a basic fome page idea
 
 <p align="center">
-  <img src="images/figma.png" alt="home page idea" width="400" height="400">
+  <img src="images/figma.png" alt="home page idea" height="275">
 </p>
 
 With DrawSQL I did the first database concept
 
 <p align="center">
-  <img src="images/dbdraw.png" alt="db schema" width="400" height="400">
+  <img src="images/dbdraw.png" alt="db schema" height="300">
 </p>
 
 ###
