@@ -19,7 +19,7 @@ func main(){
 	r.Use(cors.New(cors.Config{
 		AllowOrigins: []string{"http://localhost:3000", "https://crafty-kiddos-gallery-api.onrender.com", "https://crafty-kiddos-gallery.vercel.app"},
 		AllowMethods: []string{"PUT", "PATCH", "POST", "DELETE", "GET"},
-		AllowHeaders: []string{"Content-Type"},
+		AllowHeaders: []string{"Content-Type, Authorization"},
 		AllowCredentials: true,
 	}))
 	// Handling User
