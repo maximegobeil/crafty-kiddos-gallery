@@ -20,7 +20,7 @@ export function LoginModal({ open, onClose, openSignupModal }) {
       );
       console.log("User logged in: ");
       const token = response.data.token;
-      document.cookie = `Authorization=${token}; Max-Age=86400; Secure; SameSite=None; path=/`;
+      document.cookie = `Authorization=${token}; Max-Age=86400; SameSite=None; path=/`;
       window.location.reload();
     } catch (error) {
       console.log("Error trying to login: ", error);
