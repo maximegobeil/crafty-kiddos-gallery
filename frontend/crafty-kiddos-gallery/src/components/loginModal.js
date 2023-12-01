@@ -20,7 +20,7 @@ export function LoginModal({ open, onClose, openSignupModal }) {
       );
       console.log("User logged in: ");
       const token = response.data.token;
-      document.cookie = `Authorization=${token}; Max-Age=86400; path=/, secure, samesite: none, httponly: true`;
+      document.cookie = `Authorization=${token}; Max-Age=86400; path=/; domain:https://crafty-kiddos-gallery-api.onrender.com; SameSite=None; Secure`;
       window.location.reload();
     } catch (error) {
       console.log("Error trying to login: ", error);
