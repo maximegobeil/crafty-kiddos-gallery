@@ -14,15 +14,12 @@ import (
 
 func RequireAuth(c *gin.Context) {
 	// Set CORS headers
-	fmt.Println(c.Request.Header)
-	fmt.Println(c.Request.Body)
-	fmt.Println(c.Request.Cookies())
-	
 
 	// Get the cookie off request
 	tokenString, err := c.Cookie("Authorization")
 
 	if err != nil {
+		fmt.Println("Token String err: ", tokenString)
 		c.AbortWithStatus(http.StatusUnauthorized)
 	}
 
