@@ -14,7 +14,7 @@ export function UserPortal() {
   const createKid = async () => {
     try {
       const response = await axios.post(
-        "https://crafty-kiddos-gallery-api.onrender.com/kids",
+        "https://api.maxgobeil.dev/kids",
         {
           name: kidName,
           age: Number(kidAge),
@@ -32,12 +32,9 @@ export function UserPortal() {
   const [kids, setKids] = useState([]);
   const getAllKids = async () => {
     try {
-      const response = await axios.get(
-        "https://crafty-kiddos-gallery-api.onrender.com/kids",
-        {
-          withCredentials: true,
-        }
-      );
+      const response = await axios.get("https://api.maxgobeil.dev/kids", {
+        withCredentials: true,
+      });
       setKids(response.data.kids.map((kid) => ({ ...kid, isSelected: false })));
       setKidAge("");
       setKidName("");

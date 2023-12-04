@@ -82,7 +82,7 @@ export function CraftDisplay({ kidID, kidName, kidAge }) {
   const deleteCraft = async (craftID) => {
     try {
       const response = await axios.delete(
-        `https://crafty-kiddos-gallery-api.onrender.com/kids/${kidID}/crafts/${craftID}`,
+        `https://api.maxgobeil.dev/kids/${kidID}/crafts/${craftID}`,
         { withCredentials: true }
       );
       console.log("Craft deleted: ", response.data);

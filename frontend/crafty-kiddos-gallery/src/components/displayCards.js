@@ -66,7 +66,7 @@ export function DisplayCards() {
   const getRandomCrafts = async () => {
     try {
       const response = await axios.get(
-        "https://crafty-kiddos-gallery-api.onrender.com/randomcrafts",
+        "https://api.maxgobeil.dev/randomcrafts",
         {
           withCredentials: true,
         }

@@ -11,7 +11,7 @@ export function CraftEditModal({ open, onClose, kidID, craft, refresh }) {
     onClose();
     try {
       const response = await axios.put(
-        `https://crafty-kiddos-gallery-api.onrender.com/kids/${kidID}/crafts/${craft.ID}`,
+        `https://api.maxgobeil.dev/kids/${kidID}/crafts/${craft.ID}`,
         {
           description: description,
           atAge: Number(atAge),
