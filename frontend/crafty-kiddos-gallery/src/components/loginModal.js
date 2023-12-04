@@ -17,7 +17,8 @@ export function LoginModal({ open, onClose, openSignupModal }) {
         {
           email: email,
           password: password,
-        }
+        },
+        { withCredentials: true }
       );
       console.log("User logged in: ");
       const token = response.data.token;
@@ -27,7 +28,6 @@ export function LoginModal({ open, onClose, openSignupModal }) {
         sameSite: "none",
         secure: true,
         path: "/",
-        domain: "https://crafty-kiddos-gallery-api.onrender.com",
       });
       //document.cookie = `Authorization=${token}; max-age=86400; path=/; samesite=none`;;
       //window.location.reload();
