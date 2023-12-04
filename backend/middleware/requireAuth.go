@@ -13,10 +13,13 @@ import (
 )
 
 func RequireAuth(c *gin.Context) {
-	// Set CORS headers
+	// read header from request
+	fmt.Println(c.Request.Header)
 
 	// Get the cookie off request
-	tokenString, err := c.Cookie("Authorization")
+	cookie, err := c.Request.Cookie("Authorization")
+
+	tokenString := cookie.Value
 
 	if err != nil {
 		fmt.Println("Token String err: ", tokenString)
