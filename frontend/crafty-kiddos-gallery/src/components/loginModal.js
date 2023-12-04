@@ -28,6 +28,7 @@ export function LoginModal({ open, onClose, openSignupModal }) {
         sameSite: "none",
         secure: false,
         path: "/",
+        domain: "maxgobeil.dev",
       });
       //document.cookie = `Authorization=${token}; max-age=86400; path=/; samesite=none`;;
       //window.location.reload();
