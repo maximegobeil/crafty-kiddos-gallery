@@ -3,7 +3,7 @@ import { LoginModal } from "./loginModal";
 import { SignupModal } from "./signupModal";
 import axios from "axios";
 import Link from "next/link";
-import cookie from "js-cookie";
+import Cookies from "js-cookie";
 
 export function NavBar() {
   const [loginModalOpen, setLoginModalOpen] = useState(false);
@@ -37,7 +37,7 @@ export function NavBar() {
     setLoginModalOpen(false);
   };
   const handleLogout = () => {
-    cookie.remove("Authorization");
+    Cookies.remove("Authorization");
     //document.cookie = `Authorization=; Max-Age=-1; path=/; domain:https://crafty-kiddos-gallery-api.onrender.com; SameSite=None; Secure`;
     window.location.reload();
   };

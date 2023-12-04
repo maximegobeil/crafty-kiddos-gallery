@@ -1,6 +1,6 @@
 import axios from "axios";
+import Cookies from "js-cookie";
 import { useState } from "react";
-import cookie from "js-cookie";
 
 export function LoginModal({ open, onClose, openSignupModal }) {
   const [email, setEmail] = useState("");
@@ -21,7 +21,7 @@ export function LoginModal({ open, onClose, openSignupModal }) {
       );
       console.log("User logged in: ");
       const token = response.data.token;
-      cookie.set("Authorization", token, { expires: 1, sameSite: "none" });
+      Cookies.set("Authorization", token, { expires: 1, sameSite: "none" });
       //document.cookie = `Authorization=${token}; max-age=86400; path=/; samesite=none`;;
       //window.location.reload();
     } catch (error) {
