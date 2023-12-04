@@ -17,7 +17,7 @@ func init() {
 func main(){
 	r := gin.Default()
 	r.Use(cors.New(cors.Config{
-		AllowOrigins: []string{"https://crafty-kiddos-gallery.vercel.app"},
+		AllowOrigins: []string{"https://ckg.maxgobeil.dev/"},
 		AllowMethods: []string{"PUT", "PATCH", "POST", "DELETE", "GET"},
 		AllowHeaders: []string{"Content-Type, Authorization"},
 		AllowCredentials: true,

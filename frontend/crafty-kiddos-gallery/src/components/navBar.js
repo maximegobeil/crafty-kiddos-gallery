@@ -13,12 +13,9 @@ export function NavBar() {
   useEffect(() => {
     const checkAuthentication = async () => {
       try {
-        const response = await axios.get(
-          "https://crafty-kiddos-gallery-api.onrender.com/validate",
-          {
-            withCredentials: true,
-          }
-        );
+        const response = await axios.get("https://api.maxgobeil.dev/validate", {
+          withCredentials: true,
+        });
         console.log("User authenticated: ");
         setIsLoggedIn(true);
       } catch (error) {

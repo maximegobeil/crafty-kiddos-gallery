@@ -13,7 +13,7 @@ export function LoginModal({ open, onClose, openSignupModal }) {
     try {
       console.log("email: ", email);
       const response = await axios.post(
-        "https://crafty-kiddos-gallery-api.onrender.com/login",
+        "https://api.maxgobeil.dev/login",
         {
           email: email,
           password: password,
