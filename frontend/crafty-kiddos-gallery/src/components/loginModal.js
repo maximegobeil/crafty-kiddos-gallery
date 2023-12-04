@@ -26,7 +26,7 @@ export function LoginModal({ open, onClose, openSignupModal }) {
       Cookies.set("Authorization", token, {
         expires: 1,
         sameSite: "none",
-        secure: false,
+        secure: true,
         path: "/",
         domain: "maxgobeil.dev",
       });
