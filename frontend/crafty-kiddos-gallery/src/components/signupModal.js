@@ -1,4 +1,5 @@
 import axios from "axios";
+import Cookies from "js-cookie";
 import { useState } from "react";
 
 export function SignupModal({ open, onClose, openLoginModal }) {
@@ -12,19 +13,15 @@ export function SignupModal({ open, onClose, openLoginModal }) {
 
     try {
       console.log("email: ", email);
-      const response = await axios.post(
-        "https://crafty-kiddos-gallery-api.onrender.com/signup",
-        {
-          name: name,
-          email: email,
-          password: password,
-        }
-      );
-      console.log("User created: ", response);
+      const response = await axios.post("https://api.maxgobeil.dev/signup", {
+        name: name,
+        email: email,
+        password: password,
+      });
       try {
         console.log("email: ", email);
         const responseLogin = await axios.post(
-          "https://crafty-kiddos-gallery-api.onrender.com/login",
+          "https://api.maxgobeil.dev/login",
           {
             email: email,
             password: password,
@@ -32,7 +29,13 @@ export function SignupModal({ open, onClose, openLoginModal }) {
         );
         console.log("User logged in: ", responseLogin.data);
         const token = responseLogin.data.token;
-        document.cookie = `Authorization=${token}; Max-Age=86400; Secure; SameSite=None; path=/`;
+        Cookies.set("Authorization", token, {
+          expires: 1,
+          sameSite: "none",
+          secure: true,
+          path: "/",
+          domain: "maxgobeil.dev",
+        });
         window.location.reload();
       } catch (error) {
         console.log("Error trying to login: ", error);

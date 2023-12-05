@@ -22,7 +22,6 @@ export function LoginModal({ open, onClose, openSignupModal }) {
       );
       console.log("User logged in: ");
       const token = response.data.token;
-      console.log("token: ", token);
       Cookies.set("Authorization", token, {
         expires: 1,
         sameSite: "none",
@@ -30,8 +29,7 @@ export function LoginModal({ open, onClose, openSignupModal }) {
         path: "/",
         domain: "maxgobeil.dev",
       });
-      //document.cookie = `Authorization=${token}; max-age=86400; path=/; samesite=none`;;
-      //window.location.reload();
+      window.location.reload();
     } catch (error) {
       console.log("Error trying to login: ", error);
     }

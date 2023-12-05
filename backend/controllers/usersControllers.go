@@ -3,7 +3,6 @@ package controllers
 import (
 	"example/backend/initializers"
 	"example/backend/models"
-	"fmt"
 	"net/http"
 	"os"
 	"time"
@@ -54,11 +53,6 @@ func Signup(c *gin.Context) {
 }
 
 func Login(c *gin.Context) {
-	/*c.Header("Access-Control-Allow-Origin", "https://crafty-kiddos-gallery.vercel.app")  // Replace with the actual origin of your frontend
-	c.Header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE")
-	c.Header("Access-Control-Allow-Headers", "Content-Type, Authorization")*/
-	
-	
 	// Get email & send request body
 	var body struct {
 		Email string
@@ -106,20 +100,9 @@ func Login(c *gin.Context) {
 		})
 		return
 	}
-	// Store to cookie
-	//c.SetSameSite(http.SameSiteNoneMode)//http.SameSiteLaxMode
-	//c.SetCookie("Authorization", tokenString, 3600 * 24, "/", "localhost", true, true)
 
 	c.JSON(http.StatusOK, gin.H{
 		"token": tokenString,
-	})
-}
-
-func Logout(c *gin.Context) {
-	c.SetCookie("Authorization", "", -3600, "", "", true, true)
-
-	c.JSON(http.StatusOK, gin.H{
-		"message": "loged out",
 	})
 }
 
@@ -136,10 +119,4 @@ func Validate(c *gin.Context) {
 	c.JSON(http.StatusOK, gin.H{
 		"message": "user found",
 	})
-}
-
-func SetCookieTest(c *gin.Context) {
-    cookie := fmt.Sprintf("Authorization=%s; Path=/; Max-Age=%d; HttpOnly; Secure; SameSite=None", "tokenString", 3600*24)
-	c.Header("Cookie", cookie)
-    c.JSON(http.StatusOK, gin.H{"message": "Cookie set successfully"})
 }

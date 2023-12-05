@@ -20,7 +20,7 @@ export function CraftDisplay({ kidID, kidName, kidAge }) {
     try {
       // Step 1 - Create the craft
       const response = await axios.post(
-        `https://crafty-kiddos-gallery-api.onrender.com/kids/${kidID}/crafts`,
+        `https://api.maxgobeil.dev/kids/${kidID}/crafts`,
         {
           kidName: kidName,
           atAge: kidAge,
@@ -34,7 +34,7 @@ export function CraftDisplay({ kidID, kidName, kidAge }) {
       const formData = new FormData();
       formData.append("image", image);
       const pictureResponse = await axios.post(
-        `https://crafty-kiddos-gallery-api.onrender.com/kids/${kidID}/crafts/${craftID}/pictures`,
+        `https://api.maxgobeil.dev/kids/${kidID}/crafts/${craftID}/pictures`,
         formData,
         {
           headers: {
@@ -45,7 +45,7 @@ export function CraftDisplay({ kidID, kidName, kidAge }) {
       );
       console.log("Picture created: ", pictureResponse.data);
       setCrafts((prevCrafts) => [...prevCrafts, response.data.craft]);
-      // Clear form field
+      // Clear the form field
       setDescription("");
       setImage(null);
       setIsPrivate(false);
@@ -57,10 +57,9 @@ export function CraftDisplay({ kidID, kidName, kidAge }) {
   const getCrafts = async () => {
     try {
       const response = await axios.get(
-        `https://crafty-kiddos-gallery-api.onrender.com/kids/${kidID}/crafts`,
+        `https://api.maxgobeil.dev/kids/${kidID}/crafts`,
         { withCredentials: true }
       );
-
       console.log("Crafts: ", response.data);
 
       const mappe = response.data.crafts.map((item) => {
@@ -97,7 +96,6 @@ export function CraftDisplay({ kidID, kidName, kidAge }) {
   const handleModify = (craft) => {
     setSelectedCraft(craft);
     setOpen(true);
-    console.log("Craft selected: ", selectedCraft);
   };
 
   return (

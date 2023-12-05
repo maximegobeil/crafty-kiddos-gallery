@@ -25,9 +25,7 @@ func main(){
 	// Handling User
 	r.POST("/signup", controllers.Signup)
 	r.POST("/login", controllers.Login)
-	r.POST("/logout", controllers.Logout)
 	r.GET("/validate", middleware.RequireAuth, controllers.Validate)
-	r.GET("/test", controllers.SetCookieTest)
 
 	// Handling Kids
 	r.POST("/kids", middleware.RequireAuth, controllers.KidCreate)

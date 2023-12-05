@@ -34,8 +34,13 @@ export function NavBar() {
     setLoginModalOpen(false);
   };
   const handleLogout = () => {
-    Cookies.remove("Authorization");
-    //document.cookie = `Authorization=; Max-Age=-1; path=/; domain:https://crafty-kiddos-gallery-api.onrender.com; SameSite=None; Secure`;
+    Cookies.remove("Authorization", {
+      expires: 1,
+      sameSite: "none",
+      secure: true,
+      path: "/",
+      domain: "maxgobeil.dev",
+    });
     window.location.reload();
   };
 

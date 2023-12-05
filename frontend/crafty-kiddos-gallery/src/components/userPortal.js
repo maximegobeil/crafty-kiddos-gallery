@@ -27,7 +27,6 @@ export function UserPortal() {
       console.log("Error creating kid: ", error);
     }
   };
-  //get the kids from the database for this user
 
   const [kids, setKids] = useState([]);
   const getAllKids = async () => {
@@ -69,7 +68,7 @@ export function UserPortal() {
   const deleteKid = async (kidID) => {
     try {
       const response = await axios.delete(
-        `https://crafty-kiddos-gallery-api.onrender.com/kids/${kidID}`,
+        `https://api.maxgobeil.dev//kids/${kidID}`,
         { withCredentials: true }
       );
       console.log("Kid deleted: ", response.data);
